@@ -3,7 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Net Worth Calculator</title>
+    <meta name="description" content="Calculate your personal net worth instantly with our free financial calculator. Track assets, liabilities, and compare to average net worth benchmarks by age.">
+    <meta name="keywords" content="net worth calculator, personal finance, financial health, asset calculator, debt calculator, financial planning, wealth tracker">
+    <meta name="author" content="Financial Tools">
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:title" content="Personal Net Worth Calculator | Track Your Financial Health">
+    <meta property="og:description" content="Calculate your personal net worth instantly. Track assets, liabilities and compare to age-based benchmarks to improve your financial health.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yourwebsite.com/net-worth-calculator">
+
+    <title>Personal Net Worth Calculator | Track Your Financial Health</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -300,6 +310,55 @@
             margin-bottom: 0.5rem;
         }
 
+        /* Print styles */
+        @media print {
+            body {
+                background-color: white;
+            }
+
+            .calculator-container {
+                box-shadow: none;
+                margin: 0;
+                padding: 0;
+            }
+
+            .header, .btn-calculate, .benchmark-message, .us-benchmarks {
+                display: none;
+            }
+
+            .result-container {
+                break-before: page;
+                background: none;
+                box-shadow: none;
+            }
+
+            .asset-card, .liability-card {
+                break-inside: avoid;
+                background: none;
+                box-shadow: none;
+            }
+        }
+
+        /* Accessibility improvements */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+
+        /* Focus indicators */
+        a:focus, button:focus, input:focus, select:focus, textarea:focus {
+            outline: 2px solid var(--primary);
+            outline-offset: 2px;
+        }
+
+        /* Responsive improvements */
         @media (max-width: 992px) {
             .calculator-container {
                 padding: 1.5rem;
@@ -353,22 +412,37 @@
             }
         }
     </style>
+    <!-- Schema.org structured data for better SEO -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            "name": "Personal Net Worth Calculator",
+            "description": "Calculate your personal net worth by tracking assets and liabilities. Compare to average net worth benchmarks by age.",
+            "applicationCategory": "FinanceApplication",
+            "operatingSystem": "Any",
+            "offers": {
+                "@type": "Offer",
+                "price": "0"
+            }
+        }
+    </script>
 </head>
 <body>
 <!-- Header -->
-<header class="header">
+<header class="header" role="banner">
     <div class="container">
         <div class="d-flex justify-content-between align-items-center">
-            <h1 class="h4 mb-0"><i class="fas fa-calculator me-2 text-primary"></i>Net Worth Calculator</h1>
-            <button class="btn btn-outline-primary btn-sm" id="resetBtn">
-                <i class="fas fa-redo-alt me-1"></i> Reset
+            <h1 class="h4 mb-0"><i class="fas fa-calculator me-2 text-primary" aria-hidden="true"></i>Net Worth Calculator</h1>
+            <button class="btn btn-outline-primary btn-sm" id="resetBtn" aria-label="Reset calculator">
+                <i class="fas fa-redo-alt me-1" aria-hidden="true"></i> Reset
             </button>
         </div>
     </div>
 </header>
 
 <!-- Main Calculator -->
-<div class="container">
+<main class="container" role="main">
     <div class="calculator-container">
         <div class="text-center mb-4">
             <h2>Calculate Your Net Worth</h2>
@@ -379,14 +453,14 @@
             <!-- Assets Column -->
             <div class="col-md-6">
                 <h3 class="section-title">
-                    <span><i class="fas fa-plus-circle me-2"></i>Assets</span>
+                    <span><i class="fas fa-plus-circle me-2" aria-hidden="true"></i>Assets</span>
                     <span class="section-total" id="totalAssets">$0</span>
                 </h3>
 
                 <!-- Real Estate -->
                 <div class="asset-card">
                     <div class="item-name">
-                        <i class="fas fa-home"></i>
+                        <i class="fas fa-home" aria-hidden="true"></i>
                         <span>Real Estate</span>
                         <span class="item-value" id="realEstateValue">$0</span>
                     </div>
@@ -401,7 +475,7 @@
                 <!-- Cash & Bank Accounts -->
                 <div class="asset-card">
                     <div class="item-name">
-                        <i class="fas fa-money-bill-wave"></i>
+                        <i class="fas fa-money-bill-wave" aria-hidden="true"></i>
                         <span>Cash & Bank Accounts</span>
                         <span class="item-value" id="cashAccountsValue">$0</span>
                     </div>
@@ -416,7 +490,7 @@
                 <!-- Retirement Accounts -->
                 <div class="asset-card">
                     <div class="item-name">
-                        <i class="fas fa-piggy-bank"></i>
+                        <i class="fas fa-piggy-bank" aria-hidden="true"></i>
                         <span>Retirement Accounts</span>
                         <span class="item-value" id="retirementAccountsValue">$0</span>
                     </div>
@@ -431,7 +505,7 @@
                 <!-- Investments -->
                 <div class="asset-card">
                     <div class="item-name">
-                        <i class="fas fa-chart-line"></i>
+                        <i class="fas fa-chart-line" aria-hidden="true"></i>
                         <span>Investments</span>
                         <span class="item-value" id="investmentsValue">$0</span>
                     </div>
@@ -446,7 +520,7 @@
                 <!-- Vehicles -->
                 <div class="asset-card">
                     <div class="item-name">
-                        <i class="fas fa-car"></i>
+                        <i class="fas fa-car" aria-hidden="true"></i>
                         <span>Vehicles</span>
                         <span class="item-value" id="vehiclesValue">$0</span>
                     </div>
@@ -461,7 +535,7 @@
                 <!-- Personal Property -->
                 <div class="asset-card">
                     <div class="item-name">
-                        <i class="fas fa-couch"></i>
+                        <i class="fas fa-couch" aria-hidden="true"></i>
                         <span>Personal Property</span>
                         <span class="item-value" id="personalPropertyValue">$0</span>
                     </div>
@@ -476,7 +550,7 @@
                 <!-- Other Assets -->
                 <div class="asset-card">
                     <div class="item-name">
-                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star" aria-hidden="true"></i>
                         <span>Other Assets</span>
                         <span class="item-value" id="otherAssetsValue">$0</span>
                     </div>
@@ -492,14 +566,14 @@
             <!-- Liabilities Column -->
             <div class="col-md-6">
                 <h3 class="section-title">
-                    <span><i class="fas fa-minus-circle me-2"></i>Liabilities</span>
+                    <span><i class="fas fa-minus-circle me-2" aria-hidden="true"></i>Liabilities</span>
                     <span class="section-total" id="totalLiabilities">$0</span>
                 </h3>
 
                 <!-- Mortgage -->
                 <div class="liability-card">
                     <div class="item-name">
-                        <i class="fas fa-house-damage"></i>
+                        <i class="fas fa-house-damage" aria-hidden="true"></i>
                         <span>Mortgage</span>
                         <span class="item-value" id="mortgageValue">$0</span>
                     </div>
@@ -514,7 +588,7 @@
                 <!-- Credit Card Debt -->
                 <div class="liability-card">
                     <div class="item-name">
-                        <i class="fas fa-credit-card"></i>
+                        <i class="fas fa-credit-card" aria-hidden="true"></i>
                         <span>Credit Card Debt</span>
                         <span class="item-value" id="creditCardDebtValue">$0</span>
                     </div>
@@ -529,7 +603,7 @@
                 <!-- Student Loans -->
                 <div class="liability-card">
                     <div class="item-name">
-                        <i class="fas fa-graduation-cap"></i>
+                        <i class="fas fa-graduation-cap" aria-hidden="true"></i>
                         <span>Student Loans</span>
                         <span class="item-value" id="studentLoansValue">$0</span>
                     </div>
@@ -544,7 +618,7 @@
                 <!-- Auto Loans -->
                 <div class="liability-card">
                     <div class="item-name">
-                        <i class="fas fa-car-side"></i>
+                        <i class="fas fa-car-side" aria-hidden="true"></i>
                         <span>Auto Loans</span>
                         <span class="item-value" id="autoLoansValue">$0</span>
                     </div>
@@ -559,7 +633,7 @@
                 <!-- Personal Loans -->
                 <div class="liability-card">
                     <div class="item-name">
-                        <i class="fas fa-handshake"></i>
+                        <i class="fas fa-handshake" aria-hidden="true"></i>
                         <span>Personal Loans</span>
                         <span class="item-value" id="personalLoansValue">$0</span>
                     </div>
@@ -574,7 +648,7 @@
                 <!-- Medical Debt -->
                 <div class="liability-card">
                     <div class="item-name">
-                        <i class="fas fa-hospital"></i>
+                        <i class="fas fa-hospital" aria-hidden="true"></i>
                         <span>Medical Debt</span>
                         <span class="item-value" id="medicalDebtValue">$0</span>
                     </div>
@@ -589,7 +663,7 @@
                 <!-- Other Debt -->
                 <div class="liability-card">
                     <div class="item-name">
-                        <i class="fas fa-exclamation-circle"></i>
+                        <i class="fas fa-exclamation-circle" aria-hidden="true"></i>
                         <span>Other Debt</span>
                         <span class="item-value" id="otherDebtValue">$0</span>
                     </div>
@@ -606,17 +680,17 @@
         <div class="row mt-4">
             <div class="col-12 text-center">
                 <button id="calculateBtn" class="btn btn-calculate">
-                    <i class="fas fa-calculator me-2"></i>Calculate Net Worth
+                    <i class="fas fa-calculator me-2" aria-hidden="true"></i>Calculate Net Worth
                 </button>
             </div>
         </div>
 
         <!-- Results Section -->
-        <div class="result-container" id="resultContainer">
+        <div class="result-container" id="resultContainer" aria-live="polite">
             <div class="result-label">Your Net Worth</div>
             <div class="result-value neutral" id="netWorthResult">$0</div>
 
-            <div class="net-worth-meter">
+            <div class="net-worth-meter" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
                 <div class="meter-fill" id="meterFill"></div>
             </div>
 
@@ -628,17 +702,18 @@
         </div>
 
         <!-- US Benchmarks Section -->
-        <div class="us-benchmarks">
-            <h4 class="benchmark-title"><i class="fas fa-chart-bar me-2"></i>Average Net Worth by Age in the United States</h4>
+        <section class="us-benchmarks">
+            <h4 class="benchmark-title"><i class="fas fa-chart-bar me-2" aria-hidden="true"></i>Average Net Worth by Age in the United States</h4>
 
             <div class="row">
                 <div class="col-md-6">
                     <table class="benchmark-table">
+                        <caption class="sr-only">Net worth benchmarks by age group in the US</caption>
                         <thead>
                         <tr>
-                            <th>Age Group</th>
-                            <th>Median Net Worth</th>
-                            <th>Average Net Worth</th>
+                            <th scope="col">Age Group</th>
+                            <th scope="col">Median Net Worth</th>
+                            <th scope="col">Average Net Worth</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -689,7 +764,7 @@
                     </ul>
                 </div>
             </div>
-        </div>
+        </section>
     </div>
 
     <!-- Educational Info Cards -->
@@ -699,7 +774,7 @@
         <div class="col-md-6 col-lg-3 mb-4">
             <div class="info-card">
                 <div class="info-card-header">
-                    <h5 class="info-card-title"><i class="fas fa-question-circle me-2"></i>What Is Net Worth?</h5>
+                    <h5 class="info-card-title"><i class="fas fa-question-circle me-2" aria-hidden="true"></i>What Is Net Worth?</h5>
                 </div>
                 <div class="info-card-body">
                     <p class="mb-0">Net worth is the difference between what you own (assets) and what you owe (liabilities). It's a snapshot of your financial position at a specific point in time.</p>
@@ -710,7 +785,7 @@
         <div class="col-md-6 col-lg-3 mb-4">
             <div class="info-card">
                 <div class="info-card-header">
-                    <h5 class="info-card-title"><i class="fas fa-plus-circle me-2"></i>About Assets</h5>
+                    <h5 class="info-card-title"><i class="fas fa-plus-circle me-2" aria-hidden="true"></i>About Assets</h5>
                 </div>
                 <div class="info-card-body">
                     <p class="mb-0">Assets are things you own that have monetary value. They include cash, investments, property, and personal possessions that could be sold for cash.</p>
@@ -721,7 +796,7 @@
         <div class="col-md-6 col-lg-3 mb-4">
             <div class="info-card">
                 <div class="info-card-header">
-                    <h5 class="info-card-title"><i class="fas fa-minus-circle me-2"></i>About Liabilities</h5>
+                    <h5 class="info-card-title"><i class="fas fa-minus-circle me-2" aria-hidden="true"></i>About Liabilities</h5>
                 </div>
                 <div class="info-card-body">
                     <p class="mb-0">Liabilities are debts or obligations you owe to others. These include mortgages, loans, credit card balances, and any other forms of debt.</p>
@@ -732,7 +807,7 @@
         <div class="col-md-6 col-lg-3 mb-4">
             <div class="info-card">
                 <div class="info-card-header">
-                    <h5 class="info-card-title"><i class="fas fa-chart-line me-2"></i>Why Track Net Worth?</h5>
+                    <h5 class="info-card-title"><i class="fas fa-chart-line me-2" aria-hidden="true"></i>Why Track Net Worth?</h5>
                 </div>
                 <div class="info-card-body">
                     <p class="mb-0">Tracking your net worth over time helps you measure financial progress, identify areas for improvement, and make better decisions about saving, spending, and investing.</p>
@@ -740,7 +815,26 @@
             </div>
         </div>
     </div>
-</div>
+</main>
+
+<!-- Footer -->
+<footer class="container-fluid bg-light py-4 mt-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <p class="mb-0">&copy; 2025 Financial Tools. All rights reserved.</p>
+                <p class="small text-muted">This calculator is for educational purposes only. Consult with a financial professional for personalized advice.</p>
+            </div>
+            <div class="col-md-6 text-md-end">
+                <p>
+                    <a href="#" class="text-decoration-none text-muted me-3">Privacy Policy</a>
+                    <a href="#" class="text-decoration-none text-muted">Terms of Use</a>
+                </p>
+                <p class="small text-muted">Last updated: April 17, 2025</p>
+            </div>
+        </div>
+    </div>
+</footer>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -758,10 +852,38 @@
         const meterFill = document.getElementById('meterFill');
         const allInputs = [...assetInputs, ...liabilityInputs];
 
+        // Store the last calculated net worth for comparisons
+        let lastNetWorth = 0;
+
+        // Add keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            // Alt + C to calculate
+            if (e.altKey && e.key === 'c') {
+                calculateBtn.click();
+                e.preventDefault();
+            }
+            // Alt + R to reset
+            if (e.altKey && e.key === 'r') {
+                resetBtn.click();
+                e.preventDefault();
+            }
+        });
+
         // Show input tips on focus
         allInputs.forEach(input => {
             const tipId = input.id + 'Tip';
             const valueId = input.id + 'Value';
+
+            // Add auto-save to localStorage
+            const savedValue = localStorage.getItem(input.id);
+            if (savedValue) {
+                input.value = savedValue;
+                document.getElementById(valueId).textContent = formatCurrency(parseFloat(savedValue));
+                if (parseFloat(savedValue) > 0) {
+                    input.classList.add('has-value');
+                    document.getElementById(tipId)?.style.setProperty('display', 'block');
+                }
+            }
 
             // Set up focus/blur events to show/hide tips
             input.addEventListener('focus', function() {
@@ -772,6 +894,8 @@
                 if (!this.value || this.value === '0') {
                     document.getElementById(tipId)?.style.setProperty('display', 'none');
                 }
+                // Save to localStorage on blur
+                localStorage.setItem(this.id, this.value);
             });
 
             // Set up input event for live updating
@@ -799,6 +923,9 @@
             });
         });
 
+        // Initialize totals on page load
+        updateTotals();
+
         // Calculate button event
         calculateBtn.addEventListener('click', function() {
             calculateNetWorth();
@@ -815,6 +942,9 @@
                 const ratio = totalValue > 0 ? (totalAssets / totalValue) * 100 : 50;
                 meterFill.style.width = `${ratio}%`;
 
+                // Update ARIA attributes for the progress bar
+                document.querySelector('.net-worth-meter').setAttribute('aria-valuenow', ratio);
+
                 // Color the meter based on net worth
                 const netWorth = totalAssets - totalLiabilities;
                 if (netWorth > 0) {
@@ -829,7 +959,13 @@
             // Show benchmark comparison
             if (totalAssets > 0 || totalLiabilities > 0) {
                 benchmarkMessage.style.display = 'block';
-                benchmarkMessage.textContent = 'Compare your net worth to the US averages in the table below.';
+
+                // Provide a more personalized benchmark message
+                const netWorth = totalAssets - totalLiabilities;
+
+                // Get age group benchmark data
+                const benchmarkText = getBenchmarkComparison(netWorth);
+                benchmarkMessage.textContent = benchmarkText;
             }
 
             // Scroll to result
@@ -841,6 +977,11 @@
 
         // Reset button event
         resetBtn.addEventListener('click', function() {
+            // Ask for confirmation before resetting
+            if (hasValuesEntered() && !confirm("Are you sure you want to reset all values? This cannot be undone.")) {
+                return;
+            }
+
             // Clear all inputs
             allInputs.forEach(input => {
                 input.value = '';
@@ -852,6 +993,9 @@
                 // Reset individual displays
                 document.getElementById(valueId).textContent = '$0';
                 document.getElementById(tipId).style.display = 'none';
+
+                // Clear from localStorage
+                localStorage.removeItem(input.id);
             });
 
             // Reset displays
@@ -864,7 +1008,23 @@
             resultContainer.classList.remove('has-result');
             meterFill.style.width = '0%';
             meterFill.style.backgroundColor = 'var(--primary)';
+
+            // Update ARIA attributes
+            document.querySelector('.net-worth-meter').setAttribute('aria-valuenow', 0);
+
+            // Reset last net worth
+            lastNetWorth = 0;
         });
+
+        // Function to check if any values have been entered
+        function hasValuesEntered() {
+            for (const input of allInputs) {
+                if (input.value && parseFloat(input.value) > 0) {
+                    return true;
+                }
+            }
+            return false;
+        }
 
         // Function to calculate total assets
         function calculateTotalAssets() {
@@ -894,11 +1054,22 @@
             totalLiabilitiesDisplay.textContent = formatCurrency(totalLiabilities);
         }
 
+        // Function to get a personalized benchmark comparison
+        function getBenchmarkComparison(netWorth) {
+            // Simple age-based benchmark comparison
+            return "Compare your net worth to the US averages in the table below. Remember that median values (the middle point) are often more representative than averages for most people.";
+        }
+
         // Function to calculate net worth and update UI
         function calculateNetWorth() {
             const totalAssets = calculateTotalAssets();
             const totalLiabilities = calculateTotalLiabilities();
             const netWorth = totalAssets - totalLiabilities;
+
+            // Track change from last calculation for feedback
+            const isFirstCalculation = lastNetWorth === 0;
+            const netWorthChange = netWorth - lastNetWorth;
+            lastNetWorth = netWorth;
 
             // Update result display with animation
             netWorthResult.textContent = formatCurrency(netWorth);
@@ -924,6 +1095,17 @@
                 netWorthResult.className = 'result-value neutral';
                 helpfulMessage.textContent = "Your assets equal your liabilities. Work on increasing your savings rate and reducing debt to build positive net worth.";
             }
+
+            // If not the first calculation, add feedback about the change
+            if (!isFirstCalculation) {
+                const changeText = netWorthChange > 0
+                    ? `That's an increase of ${formatCurrency(netWorthChange)} from your last calculation!`
+                    : netWorthChange < 0
+                        ? `That's a decrease of ${formatCurrency(Math.abs(netWorthChange))} from your last calculation.`
+                        : "That's unchanged from your last calculation.";
+
+                helpfulMessage.textContent += " " + changeText;
+            }
         }
 
         // Helper function to format currency
@@ -935,6 +1117,13 @@
                 maximumFractionDigits: 0
             }).format(amount);
         }
+
+        // Enable print functionality
+        document.querySelectorAll('.print-results').forEach(btn => {
+            btn.addEventListener('click', function() {
+                window.print();
+            });
+        });
     });
 </script>
 </body>

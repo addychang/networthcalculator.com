@@ -52,6 +52,13 @@
             z-index: 1000;
         }
 
+        .site-logo {
+            height: 50px;
+            width: auto;
+            max-width: 220px;
+            object-fit: contain;
+        }
+
         .calculator-container {
             background-color: white;
             border-radius: var(--border-radius);
@@ -435,7 +442,10 @@
 <header class="header" role="banner">
     <div class="container">
         <div class="d-flex justify-content-between align-items-center">
-            <h1 class="h4 mb-0"><i class="fas fa-calculator me-2 text-primary" aria-hidden="true"></i>Net Worth Calculator</h1>
+            <div class="d-flex align-items-center">
+                <img src="/img/logo.png" alt="Net Worth Calculator Logo" class="site-logo me-2" id="site-logo">
+                <!-- Logo placeholder - will be replaced with actual logo -->
+            </div>
             <button class="btn btn-outline-primary btn-sm" id="resetBtn" aria-label="Reset calculator">
                 <i class="fas fa-redo-alt me-1" aria-hidden="true"></i> Reset
             </button>
@@ -840,6 +850,7 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+
         // Cache DOM elements
         const assetInputs = document.querySelectorAll('.asset-input');
         const liabilityInputs = document.querySelectorAll('.liability-input');

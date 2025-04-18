@@ -1,0 +1,1303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO Meta Tags -->
+    <title>Net Worth Calculator | Instantly Calculate & Track Your Net Worth in Canada</title>
+    <meta name="description" content="Use the free Canadian Net Worth Calculator at NetWorthCalculator.com to instantly determine your personal net worth. Enter your assets and liabilities, get step-by-step calculations, and compare your results to Canadian averages. Start tracking your financial health today!">
+    <meta name="keywords" content="net worth calculator, calculate net worth, Canadian net worth, personal finance, asset calculator, debt calculator, financial planning, wealth tracker, networth, Canada">
+    <meta name="author" content="NetWorthCalculator.com">
+
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:title" content="Canadian Net Worth Calculator | Instantly Calculate Your Net Worth Online">
+    <meta property="og:description" content="Calculate your net worth in minutes with our free online calculator. Compare your results to Canadian benchmarks and get tips for improving your finances.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://NetWorthCalculator.com/ca/">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #d71920;
+            --primary-dark: #a21318;
+            --primary-light: #ffe6e7;
+            --accent: #00a8e8;
+            --light-gray: #f8f9fa;
+            --medium-gray: #e9ecef;
+            --dark-gray: #495057;
+            --text-dark: #212529;
+            --success: #28a745;
+            --danger: #dc3545;
+            --warning: #ffc107;
+            --border-radius: 8px;
+            --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            color: var(--text-dark);
+            background-color: var(--light-gray);
+            line-height: 1.6;
+        }
+
+        .header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .site-logo {
+            height: 50px;
+            width: auto;
+            max-width: 220px;
+            object-fit: contain;
+        }
+
+        .calculator-container {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            padding: 2rem;
+            margin: 2rem auto;
+            max-width: 1200px;
+        }
+
+        .section-title {
+            color: var(--primary);
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .asset-card, .liability-card {
+            background-color: var(--light-gray);
+            border-radius: var(--border-radius);
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+            transition: var(--transition);
+            border-left: 4px solid transparent;
+        }
+
+        .asset-card {
+            border-left-color: var(--success);
+        }
+
+        .liability-card {
+            border-left-color: var(--danger);
+        }
+
+        .asset-card:hover, .liability-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        }
+
+        .item-name {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .item-name i {
+            width: 24px;
+            color: var(--primary);
+            margin-right: 8px;
+        }
+
+        .item-value {
+            margin-left: auto;
+            font-weight: 500;
+            color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .item-description {
+            font-size: 0.9rem;
+            color: var(--dark-gray);
+            margin-bottom: 1rem;
+        }
+
+        .input-group {
+            margin-top: 0.5rem;
+        }
+
+        .input-group-text {
+            background-color: var(--primary);
+            color: white;
+            font-weight: 600;
+            border: none;
+        }
+
+        .form-control {
+            border: 1px solid var(--medium-gray);
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 0.25rem rgba(215, 25, 32, 0.25);
+        }
+
+        .form-control.has-value {
+            background-color: var(--primary-light);
+        }
+
+        .input-tip {
+            display: none;
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            color: var(--dark-gray);
+            font-style: italic;
+        }
+
+        .btn-calculate {
+            background-color: var(--primary);
+            color: white;
+            font-weight: 600;
+            padding: 0.75rem 2.5rem;
+            border-radius: 50px;
+            border: none;
+            box-shadow: 0 4px 10px rgba(215, 25, 32, 0.3);
+            transition: var(--transition);
+        }
+
+        .btn-calculate:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(215, 25, 32, 0.4);
+        }
+
+        .btn-reset {
+            background-color: var(--medium-gray);
+            color: var(--dark-gray);
+            font-weight: 600;
+            padding: 0.75rem 2.5rem;
+            border-radius: 50px;
+            border: none;
+            margin-left: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+
+        .btn-reset:hover {
+            background-color: var(--dark-gray);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .result-container {
+            background: linear-gradient(135deg, var(--light-gray) 0%, var(--medium-gray) 100%);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            text-align: center;
+            margin-top: 2rem;
+            transition: var(--transition);
+        }
+
+        .result-container.has-result {
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--medium-gray) 100%);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .result-label {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .result-value {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            transition: var(--transition);
+        }
+
+        .net-worth-meter {
+            height: 8px;
+            background-color: var(--medium-gray);
+            border-radius: 4px;
+            margin: 1.5rem auto;
+            max-width: 300px;
+            overflow: hidden;
+        }
+
+        .meter-fill {
+            height: 100%;
+            width: 0%;
+            background-color: var(--primary);
+            transition: width 1s ease;
+        }
+
+        .positive {
+            color: var(--success);
+        }
+
+        .negative {
+            color: var(--danger);
+        }
+
+        .neutral {
+            color: var(--primary);
+        }
+
+        .helpful-message {
+            margin-top: 1rem;
+            font-size: 1.1rem;
+            font-weight: 500;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .benchmark-message {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: var(--dark-gray);
+            display: none;
+        }
+
+        .info-card {
+            height: 100%;
+            border: none;
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            overflow: hidden;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        }
+
+        .info-card-header {
+            background-color: var(--primary-light);
+            padding: 0.75rem 1rem;
+        }
+
+        .info-card-title {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .info-card-body {
+            padding: 1rem;
+        }
+
+        .ca-benchmarks {
+            background-color: var(--primary-light);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            margin-top: 2.5rem;
+        }
+
+        .benchmark-title {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .benchmark-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1rem;
+        }
+
+        .benchmark-table th, .benchmark-table td {
+            padding: 0.5rem;
+            text-align: left;
+            border-bottom: 1px solid var(--medium-gray);
+        }
+
+        .benchmark-table th {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .benchmark-table tr:nth-child(even) {
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .tips-list li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Country selector styles */
+        .country-selector {
+            margin-left: 15px;
+        }
+
+        .country-selector .dropdown-toggle {
+            background-color: transparent;
+            border: 1px solid var(--medium-gray);
+            border-radius: var(--border-radius);
+            padding: 6px 12px;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+        }
+
+        .country-selector .dropdown-toggle:hover {
+            background-color: var(--light-gray);
+        }
+
+        .country-selector .dropdown-menu {
+            min-width: 200px;
+            padding: 0.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .country-selector .dropdown-item {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        .country-selector .dropdown-item:hover {
+            background-color: var(--primary-light);
+        }
+
+        .country-selector .dropdown-item.active {
+            background-color: var(--primary-light);
+            color: var(--primary-dark);
+            font-weight: 600;
+        }
+
+        .country-selector .country-flag {
+            height: 20px;
+            width: 28px;
+            margin-right: 10px;
+            object-fit: cover;
+            border-radius: 2px;
+        }
+
+        .flag-icon {
+            height: 16px;
+            width: 22px;
+            margin-right: 6px;
+            object-fit: cover;
+            border-radius: 2px;
+        }
+
+        /* Print styles */
+        @media print {
+            body {
+                background-color: white;
+            }
+
+            .calculator-container {
+                box-shadow: none;
+                margin: 0;
+                padding: 0;
+            }
+
+            .header, .btn-calculate, .btn-reset, .benchmark-message, .ca-benchmarks, .country-selector {
+                display: none;
+            }
+
+            .result-container {
+                break-before: page;
+                background: none;
+                box-shadow: none;
+            }
+
+            .asset-card, .liability-card {
+                break-inside: avoid;
+                background: none;
+                box-shadow: none;
+            }
+        }
+
+        /* Accessibility improvements */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+
+        /* Focus indicators */
+        a:focus, button:focus, input:focus, select:focus, textarea:focus {
+            outline: 2px solid var(--primary);
+            outline-offset: 2px;
+        }
+
+        /* Responsive improvements */
+        @media (max-width: 992px) {
+            .calculator-container {
+                padding: 1.5rem;
+            }
+
+            .result-value {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .calculator-container {
+                padding: 1.25rem;
+                margin: 1rem;
+            }
+
+            .section-title {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.25rem;
+            }
+
+            .section-total {
+                align-self: flex-end;
+            }
+
+            .result-value {
+                font-size: 2.2rem;
+            }
+
+            .btn-group-action {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .btn-calculate, .btn-reset {
+                width: 100%;
+                margin-left: 0;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .header {
+                padding: 0.75rem 0;
+            }
+
+            .header-actions {
+                gap: 5px;
+            }
+
+            .country-selector .dropdown-toggle {
+                padding: 4px 8px;
+            }
+
+            .country-selector .country-flag {
+                height: 18px;
+                width: 24px;
+            }
+
+            .asset-card, .liability-card {
+                padding: 1rem;
+            }
+
+            .result-label {
+                font-size: 1.2rem;
+            }
+
+            .result-value {
+                font-size: 2rem;
+            }
+
+            .helpful-message {
+                font-size: 1rem;
+            }
+        }
+    </style>
+    <!-- Schema.org structured data for better SEO -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            "name": "Canadian Net Worth Calculator",
+            "description": "Calculate your personal net worth by tracking assets and liabilities. Compare to average net worth benchmarks by age in Canada.",
+            "applicationCategory": "FinanceApplication",
+            "operatingSystem": "Any",
+            "offers": {
+                "@type": "Offer",
+                "price": "0"
+            }
+        }
+    </script>
+</head>
+<body>
+<!-- Header -->
+<header class="header" role="banner">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center">
+                <a href="/" aria-label="Back to Net Worth Calculator Home">
+                    <!-- Assuming logo.png is in an 'img' folder in the root -->
+                    <img src="/img/logo.png" alt="Net Worth Calculator Logo" class="site-logo" id="site-logo">
+                </a>
+                <div class="country-selector dropdown">
+                    <button class="dropdown-toggle" type="button" id="countryDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <!-- Assuming flag images are in 'img/flags' folder -->
+                        <img src="/img/flags/ca.png" alt="Canada flag" class="flag-icon" id="current-flag">
+                        <span id="current-country">CA</span>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="countryDropdown">
+                        <li>
+                            <a class="dropdown-item" href="/" data-country="us">
+                                <img src="/img/flags/us.png" alt="US flag" class="country-flag">
+                                United States
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item active" href="/ca/" data-country="ca">
+                                <img src="/img/flags/ca.png" alt="Canada flag" class="country-flag">
+                                Canada
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="/uk/" data-country="uk">
+                                <img src="/img/flags/uk.png" alt="UK flag" class="country-flag">
+                                United Kingdom
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="/au/" data-country="au">
+                                <img src="/img/flags/au.png" alt="Australia flag" class="country-flag">
+                                Australia
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="/in/" data-country="in">
+                                <img src="/img/flags/in.png" alt="India flag" class="country-flag">
+                                India
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <nav aria-label="Main navigation" class="header-actions">
+                <!-- Back to Calculator button removed -->
+            </nav>
+        </div>
+    </div>
+</header>
+
+<!-- Main Calculator -->
+<main class="container" role="main">
+    <div class="calculator-container">
+        <div class="text-center mb-4">
+            <h2>Calculate Your Net Worth</h2>
+            <p class="text-muted">Track your financial health by adding up all your assets and subtracting your liabilities in Canadian dollars</p>
+        </div>
+
+        <div class="row">
+            <!-- Assets Column -->
+            <div class="col-md-6">
+                <h3 class="section-title">
+                    <span><i class="fas fa-plus-circle me-2" aria-hidden="true"></i>Assets</span>
+                    <span class="section-total" id="totalAssets">$0</span>
+                </h3>
+
+                <!-- Real Estate -->
+                <div class="asset-card">
+                    <div class="item-name">
+                        <i class="fas fa-home" aria-hidden="true"></i>
+                        <span>Real Estate</span>
+                        <span class="item-value" id="realEstateValue">$0</span>
+                    </div>
+                    <div class="item-description">Current market value of your home and any other real estate you own.</div>
+                    <div class="input-group">
+                        <span class="input-group-text">$</span>
+                        <input type="number" class="form-control asset-input" id="realEstate" placeholder="0" min="0" aria-label="Real estate value">
+                    </div>
+                    <div class="input-tip" id="realEstateTip">Include primary residence, cottage, income properties, and land.</div>
+                </div>
+
+                <!-- Cash & Bank Accounts -->
+                <div class="asset-card">
+                    <div class="item-name">
+                        <i class="fas fa-money-bill-wave" aria-hidden="true"></i>
+                        <span>Cash & Bank Accounts</span>
+                        <span class="item-value" id="cashAccountsValue">$0</span>
+                    </div>
+                    <div class="item-description">Total in your chequing and savings accounts, GICs, and cash on hand.</div>
+                    <div class="input-group">
+                        <span class="input-group-text">$</span>
+                        <input type="number" class="form-control asset-input" id="cashAccounts" placeholder="0" min="0" aria-label="Cash and bank accounts value">
+                    </div>
+                    <div class="input-tip" id="cashAccountsTip">Include chequing, savings, high-interest savings accounts, GICs, and physical cash.</div>
+                </div>
+
+                <!-- Registered Accounts -->
+                <div class="asset-card">
+                    <div class="item-name">
+                        <i class="fas fa-piggy-bank" aria-hidden="true"></i>
+                        <span>Registered Accounts</span>
+                        <span class="item-value" id="retirementAccountsValue">$0</span>
+                    </div>
+                    <div class="item-description">Value of your RRSP, TFSA, RESP, RDSP, and other registered accounts.</div>
+                    <div class="input-group">
+                        <span class="input-group-text">$</span>
+                        <input type="number" class="form-control asset-input" id="retirementAccounts" placeholder="0" min="0" aria-label="Registered accounts value">
+                    </div>
+                    <div class="input-tip" id="retirementAccountsTip">Include RRSP, TFSA, RESP, RDSP, LIRA, RPP, and Group RRSP balances.</div>
+                </div>
+
+                <!-- Non-Registered Investments -->
+                <div class="asset-card">
+                    <div class="item-name">
+                        <i class="fas fa-chart-line" aria-hidden="true"></i>
+                        <span>Non-Registered Investments</span>
+                        <span class="item-value" id="investmentsValue">$0</span>
+                    </div>
+                    <div class="item-description">Stocks, bonds, mutual funds, ETFs and other non-registered investments.</div>
+                    <div class="input-group">
+                        <span class="input-group-text">$</span>
+                        <input type="number" class="form-control asset-input" id="investments" placeholder="0" min="0" aria-label="Investments value">
+                    </div>
+                    <div class="input-tip" id="investmentsTip">Include non-registered brokerage accounts, individual stocks, bonds, ETFs, mutual funds, and dividend-paying investments.</div>
+                </div>
+
+                <!-- Vehicles -->
+                <div class="asset-card">
+                    <div class="item-name">
+                        <i class="fas fa-car" aria-hidden="true"></i>
+                        <span>Vehicles</span>
+                        <span class="item-value" id="vehiclesValue">$0</span>
+                    </div>
+                    <div class="item-description">Current market value of cars, boats, motorcycles, and other vehicles.</div>
+                    <div class="input-group">
+                        <span class="input-group-text">$</span>
+                        <input type="number" class="form-control asset-input" id="vehicles" placeholder="0" min="0" aria-label="Vehicles value">
+                    </div>
+                    <div class="input-tip" id="vehiclesTip">Check Canadian Black Book or AutoTrader for accurate market values of your vehicles.</div>
+                </div>
+
+                <!-- Personal Property -->
+                <div class="asset-card">
+                    <div class="item-name">
+                        <i class="fas fa-couch" aria-hidden="true"></i>
+                        <span>Personal Property</span>
+                        <span class="item-value" id="personalPropertyValue">$0</span>
+                    </div>
+                    <div class="item-description">Value of furniture, jewelry, collectibles, electronics, and other belongings.</div>
+                    <div class="input-group">
+                        <span class="input-group-text">$</span>
+                        <input type="number" class="form-control asset-input" id="personalProperty" placeholder="0" min="0" aria-label="Personal property value">
+                    </div>
+                    <div class="input-tip" id="personalPropertyTip">Be conservative with estimates - use resale value, not replacement cost.</div>
+                </div>
+
+                <!-- Other Assets -->
+                <div class="asset-card">
+                    <div class="item-name">
+                        <i class="fas fa-star" aria-hidden="true"></i>
+                        <span>Other Assets</span>
+                        <span class="item-value" id="otherAssetsValue">$0</span>
+                    </div>
+                    <div class="item-description">Business ownership, cash value of life insurance, cryptocurrency, etc.</div>
+                    <div class="input-group">
+                        <span class="input-group-text">$</span>
+                        <input type="number" class="form-control asset-input" id="otherAssets" placeholder="0" min="0" aria-label="Other assets value">
+                    </div>
+                    <div class="input-tip" id="otherAssetsTip">Include business equity, cash value of life insurance, cryptocurrency, and valuable collectibles.</div>
+                </div>
+            </div>
+
+            <!-- Liabilities Column -->
+            <div class="col-md-6">
+                <h3 class="section-title">
+                    <span><i class="fas fa-minus-circle me-2" aria-hidden="true"></i>Liabilities</span>
+                    <span class="section-total" id="totalLiabilities">$0</span>
+                </h3>
+
+                <!-- Mortgage -->
+                <div class="liability-card">
+                    <div class="item-name">
+                        <i class="fas fa-house-damage" aria-hidden="true"></i>
+                        <span>Mortgage</span>
+                        <span class="item-value" id="mortgageValue">$0</span>
+                    </div>
+                    <div class="item-description">Remaining balance on your home loan(s) and any HELOCs.</div>
+                    <div class="input-group">
+                        <span class="input-group-text">$</span>
+                        <input type="number" class="form-control liability-input" id="mortgage" placeholder="0" min="0" aria-label="Mortgage value">
+                    </div>
+                    <div class="input-tip" id="mortgageTip">Include primary mortgage, second mortgage, home equity lines of credit (HELOCs), and reverse mortgages.</div>
+                </div>
+
+                <!-- Credit Card Debt -->
+                <div class="liability-card">
+                    <div class="item-name">
+                        <i class="fas fa-credit-card" aria-hidden="true"></i>
+                        <span>Credit Card Debt</span>
+                        <span class="item-value" id="creditCardDebtValue">$0</span>
+                    </div>
+                    <div class="item-description">Total balances owed on all your credit cards.</div>
+                    <div class="input-group">
+                        <span class="input-group-text">$</span>
+                        <input type="number" class="form-control liability-input" id="creditCardDebt" placeholder="0" min="0" aria-label="Credit card debt value">
+                    </div>
+                    <div class="input-tip" id="creditCardDebtTip">Include all credit card balances, even if you plan to pay them off this month.</div>
+                </div>
+
+                <!-- Student Loans -->
+                <div class="liability-card">
+                    <div class="item-name">
+                        <i class="fas fa-graduation-cap" aria-hidden="true"></i>
+                        <span>Student Loans</span>
+                        <span class="item-value" id="studentLoansValue">$0</span>
+                    </div>
+                    <div class="item-description">Remaining balance on all student loans.</div>
+                    <div class="input-group">
+                        <span class="input-group-text">$</span>
+                        <input type="number" class="form-control liability-input" id="studentLoans" placeholder="0" min="0" aria-label="Student loans value">
+                    </div>
+                    <div class="input-tip" id="studentLoansTip">Include Canada Student Loans, provincial student loans, OSAP, and any private education loans.</div>
+                </div>
+
+                <!-- Auto Loans -->
+                <div class="liability-card">
+                    <div class="item-name">
+                        <i class="fas fa-car-side" aria-hidden="true"></i>
+                        <span>Auto Loans</span>
+                        <span class="item-value" id="autoLoansValue">$0</span>
+                    </div>
+                    <div class="item-description">Remaining balance on vehicle loans or leases.</div>
+                    <div class="input-group">
+                        <span class="input-group-text">$</span>
+                        <input type="number" class="form-control liability-input" id="autoLoans" placeholder="0" min="0" aria-label="Auto loans value">
+                    </div>
+                    <div class="input-tip" id="autoLoansTip">Include car loans, lease payoff amounts, and motorcycle/boat loans.</div>
+                </div>
+
+                <!-- Personal Loans -->
+                <div class="liability-card">
+                    <div class="item-name">
+                        <i class="fas fa-handshake" aria-hidden="true"></i>
+                        <span>Personal Loans</span>
+                        <span class="item-value" id="personalLoansValue">$0</span>
+                    </div>
+                    <div class="item-description">Balance on personal loans from banks, credit unions, or individuals.</div>
+                    <div class="input-group">
+                        <span class="input-group-text">$</span>
+                        <input type="number" class="form-control liability-input" id="personalLoans" placeholder="0" min="0" aria-label="Personal loans value">
+                    </div>
+                    <div class="input-tip" id="personalLoansTip">Include bank loans, credit union loans, and money borrowed from family/friends.</div>
+                </div>
+
+                <!-- Line of Credit -->
+                <div class="liability-card">
+                    <div class="item-name">
+                        <i class="fas fa-university" aria-hidden="true"></i>
+                        <span>Lines of Credit</span>
+                        <span class="item-value" id="medicalDebtValue">$0</span>
+                    </div>
+                    <div class="item-description">Outstanding balances on personal lines of credit (excluding HELOCs).</div>
+                    <div class="input-group">
+                        <span class="input-group-text">$</span>
+                        <input type="number" class="form-control liability-input" id="medicalDebt" placeholder="0" min="0" aria-label="Line of credit value">
+                    </div>
+                    <div class="input-tip" id="medicalDebtTip">Include unsecured lines of credit, student lines of credit, and other personal lines of credit.</div>
+                </div>
+
+                <!-- Other Debt -->
+                <div class="liability-card">
+                    <div class="item-name">
+                        <i class="fas fa-exclamation-circle" aria-hidden="true"></i>
+                        <span>Other Debt</span>
+                        <span class="item-value" id="otherDebtValue">$0</span>
+                    </div>
+                    <div class="item-description">Business loans, CRA debt, other outstanding liabilities.</div>
+                    <div class="input-group">
+                        <span class="input-group-text">$</span>
+                        <input type="number" class="form-control liability-input" id="otherDebt" placeholder="0" min="0" aria-label="Other debt value">
+                    </div>
+                    <div class="input-tip" id="otherDebtTip">Include business loans, tax debt owed to CRA, payday loans, and any other debts.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-12 text-center">
+                <div class="d-flex justify-content-center btn-group-action">
+                    <button id="calculateBtn" class="btn btn-calculate">
+                        <i class="fas fa-calculator me-2" aria-hidden="true"></i>Calculate Net Worth
+                    </button>
+                    <button id="resetBtn" class="btn btn-reset">
+                        <i class="fas fa-undo me-2" aria-hidden="true"></i>Reset All Values
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Section -->
+        <div class="result-container" id="resultContainer" aria-live="polite">
+            <div class="result-label">Your Net Worth</div>
+            <div class="result-value neutral" id="netWorthResult">$0</div>
+
+            <div class="net-worth-meter" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                <div class="meter-fill" id="meterFill"></div>
+            </div>
+
+            <div class="helpful-message" id="helpfulMessage">
+                Enter your assets and liabilities above to calculate your net worth in Canadian dollars.
+            </div>
+
+            <div class="benchmark-message" id="benchmarkMessage"></div>
+        </div>
+
+        <!-- Canadian Benchmarks Section -->
+        <section class="ca-benchmarks">
+            <h4 class="benchmark-title"><i class="fas fa-chart-bar me-2" aria-hidden="true"></i>Average Net Worth by Age in Canada</h4>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <table class="benchmark-table">
+                        <caption class="sr-only">Net worth benchmarks by age group in Canada</caption>
+                        <thead>
+                        <tr>
+                            <th scope="col">Age Group</th>
+                            <th scope="col">Median Net Worth</th>
+                            <th scope="col">Average Net Worth</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Under 35</td>
+                            <td>$48,800</td>
+                            <td>$163,700</td>
+                        </tr>
+                        <tr>
+                            <td>35-44</td>
+                            <td>$234,400</td>
+                            <td>$457,700</td>
+                        </tr>
+                        <tr>
+                            <td>45-54</td>
+                            <td>$521,100</td>
+                            <td>$833,200</td>
+                        </tr>
+                        <tr>
+                            <td>55-64</td>
+                            <td>$690,000</td>
+                            <td>$1,098,400</td>
+                        </tr>
+                        <tr>
+                            <td>65+</td>
+                            <td>$543,200</td>
+                            <td>$1,006,400</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <p class="small text-muted">Source: Statistics Canada Survey of Financial Security (most recent data)</p>
+                </div>
+
+                <div class="col-md-6">
+                    <h5 class="mb-3">Tips to Improve Your Net Worth in Canada</h5>
+                    <ul class="tips-list">
+                        <li><strong>Maximize RRSP and TFSA contributions</strong> - Take advantage of these tax-advantaged accounts.</li>
+                        <li><strong>Pay off high-interest debt</strong> - Focus on credit cards and payday loans first.</li>
+                        <li><strong>Build an emergency fund</strong> - Aim for 3-6 months of expenses in a high-interest savings account.</li>
+                        <li><strong>Leverage the Home Buyers' Plan</strong> - Use your RRSP for a home down payment if eligible.</li>
+                        <li><strong>Consider income-splitting strategies</strong> - Explore spousal RRSPs and other tax-efficient options.</li>
+                        <li><strong>Invest in low-cost ETFs</strong> - Keep investment fees low to maximize returns over time.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Educational Info Cards -->
+    <div class="row mt-5 mb-5">
+        <h3 class="text-center mb-4">Understanding Your Net Worth</h3>
+
+        <div class="col-md-6 col-lg-3 mb-4">
+            <div class="info-card">
+                <div class="info-card-header">
+                    <h5 class="info-card-title"><i class="fas fa-question-circle me-2" aria-hidden="true"></i>What Is Net Worth?</h5>
+                </div>
+                <div class="info-card-body">
+                    <p class="mb-0">Net worth is the difference between what you own (assets) and what you owe (liabilities). It's a snapshot of your financial position at a specific point in time.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3 mb-4">
+            <div class="info-card">
+                <div class="info-card-header">
+                    <h5 class="info-card-title"><i class="fas fa-plus-circle me-2" aria-hidden="true"></i>About Assets</h5>
+                </div>
+                <div class="info-card-body">
+                    <p class="mb-0">Assets are things you own that have monetary value. They include cash, investments, property, and personal possessions that could be sold for cash.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3 mb-4">
+            <div class="info-card">
+                <div class="info-card-header">
+                    <h5 class="info-card-title"><i class="fas fa-minus-circle me-2" aria-hidden="true"></i>About Liabilities</h5>
+                </div>
+                <div class="info-card-body">
+                    <p class="mb-0">Liabilities are debts or obligations you owe to others. These include mortgages, loans, credit card balances, and any other forms of debt.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3 mb-4">
+            <div class="info-card">
+                <div class="info-card-header">
+                    <h5 class="info-card-title"><i class="fas fa-chart-line me-2" aria-hidden="true"></i>Why Track Net Worth?</h5>
+                </div>
+                <div class="info-card-body">
+                    <p class="mb-0">Tracking your net worth over time helps you measure financial progress, identify areas for improvement, and make better decisions about saving, spending, and investing.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Footer -->
+<footer class="container-fluid mt-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <p class="mb-0">© 2025 NetWorthCalculator.com. All rights reserved.</p>
+                <p class="small text-muted">Use of this site constitutes acceptance of our <a href="/terms-of-use.html" class="text-muted">Terms of Use</a> and <a href="/privacy-policy.html" class="text-muted">Privacy Policy</a>.</p>
+            </div>
+            <div class="col-md-6 text-md-end">
+                <p>
+                    <a href="/privacy-policy.html" class="text-decoration-none text-muted me-3">Privacy Policy</a>
+                    <a href="/terms-of-use.html" class="text-decoration-none text-muted">Terms of Use</a>
+                </p>
+                <p class="small text-muted">Calculator data is stored locally on your device.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+        // Cache DOM elements
+        const assetInputs = document.querySelectorAll('.asset-input');
+        const liabilityInputs = document.querySelectorAll('.liability-input');
+        const calculateBtn = document.getElementById('calculateBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const netWorthResult = document.getElementById('netWorthResult');
+        const helpfulMessage = document.getElementById('helpfulMessage');
+        const benchmarkMessage = document.getElementById('benchmarkMessage');
+        const totalAssetsDisplay = document.getElementById('totalAssets');
+        const totalLiabilitiesDisplay = document.getElementById('totalLiabilities');
+        const resultContainer = document.getElementById('resultContainer');
+        const meterFill = document.getElementById('meterFill');
+        const allInputs = [...assetInputs, ...liabilityInputs];
+
+        // Country selector functionality
+        const countryItems = document.querySelectorAll('.country-selector .dropdown-item');
+        const currentFlag = document.getElementById('current-flag');
+        const currentCountry = document.getElementById('current-country');
+
+        countryItems.forEach(item => {
+            item.addEventListener('click', function(e) {
+                const country = this.getAttribute('data-country');
+                const flagSrc = this.querySelector('.country-flag').src;
+
+                currentFlag.src = flagSrc;
+                currentCountry.textContent = country.toUpperCase();
+
+                // Remove active class from all items
+                countryItems.forEach(i => i.classList.remove('active'));
+
+                // Add active class to clicked item
+                this.classList.add('active');
+
+                // Note: the actual navigation happens through the href attribute
+            });
+        });
+
+        // Store the last calculated net worth for comparisons
+        let lastNetWorth = 0;
+
+        // Add keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            // Alt + C to calculate
+            if (e.altKey && e.key === 'c') {
+                calculateBtn.click();
+                e.preventDefault();
+            }
+            // Alt + R to reset
+            if (e.altKey && e.key === 'r') {
+                resetBtn.click();
+                e.preventDefault();
+            }
+        });
+
+        // Show input tips on focus
+        allInputs.forEach(input => {
+            const tipId = input.id + 'Tip';
+            const valueId = input.id + 'Value';
+
+            // Add auto-save to localStorage
+            const savedValue = localStorage.getItem(input.id);
+            if (savedValue) {
+                input.value = savedValue;
+                document.getElementById(valueId).textContent = formatCurrency(parseFloat(savedValue));
+                if (parseFloat(savedValue) > 0) {
+                    input.classList.add('has-value');
+                    document.getElementById(tipId)?.style.setProperty('display', 'block');
+                }
+            }
+
+            // Set up focus/blur events to show/hide tips
+            input.addEventListener('focus', function() {
+                document.getElementById(tipId)?.style.setProperty('display', 'block');
+            });
+
+            input.addEventListener('blur', function() {
+                if (!this.value || this.value === '0') {
+                    document.getElementById(tipId)?.style.setProperty('display', 'none');
+                }
+                // Save to localStorage on blur
+                localStorage.setItem(this.id, this.value);
+            });
+
+            // Set up input event for live updating
+            input.addEventListener('input', function() {
+                // Ensure non-negative values
+                if (this.value < 0) this.value = 0;
+
+                // Update individual value display
+                const value = parseFloat(this.value || 0);
+                document.getElementById(valueId).textContent = formatCurrency(value);
+
+                // Add or remove the has-value class
+                if (value > 0) {
+                    this.classList.add('has-value');
+                    document.getElementById(tipId)?.style.setProperty('display', 'block');
+                } else {
+                    this.classList.remove('has-value');
+                    if (!this.matches(':focus')) {
+                        document.getElementById(tipId)?.style.setProperty('display', 'none');
+                    }
+                }
+
+                // Update totals in real-time
+                updateTotals();
+            });
+        });
+
+        // Initialize totals on page load
+        updateTotals();
+
+        // Calculate button event
+        calculateBtn.addEventListener('click', function() {
+            calculateNetWorth();
+
+            // Animate the result display
+            resultContainer.classList.add('has-result');
+
+            // Update the meter visualization
+            const totalAssets = calculateTotalAssets();
+            const totalLiabilities = calculateTotalLiabilities();
+
+            if (totalAssets > 0 || totalLiabilities > 0) {
+                const totalValue = totalAssets + totalLiabilities;
+                const ratio = totalValue > 0 ? (totalAssets / totalValue) * 100 : 50;
+                meterFill.style.width = `${ratio}%`;
+
+                // Update ARIA attributes for the progress bar
+                document.querySelector('.net-worth-meter').setAttribute('aria-valuenow', ratio);
+
+                // Color the meter based on net worth
+                const netWorth = totalAssets - totalLiabilities;
+                if (netWorth > 0) {
+                    meterFill.style.backgroundColor = 'var(--success)';
+                } else if (netWorth < 0) {
+                    meterFill.style.backgroundColor = 'var(--danger)';
+                } else {
+                    meterFill.style.backgroundColor = 'var(--primary)';
+                }
+            }
+
+            // Show benchmark comparison
+            if (totalAssets > 0 || totalLiabilities > 0) {
+                benchmarkMessage.style.display = 'block';
+
+                // Provide a more personalized benchmark message
+                const netWorth = totalAssets - totalLiabilities;
+
+                // Get age group benchmark data
+                const benchmarkText = getBenchmarkComparison(netWorth);
+                benchmarkMessage.textContent = benchmarkText;
+            }
+
+            // Scroll to result
+            resultContainer.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+
+        // Reset button event
+        resetBtn.addEventListener('click', function() {
+            // Ask for confirmation before resetting
+            if (hasValuesEntered() && !confirm("Are you sure you want to reset all values? This cannot be undone.")) {
+                return;
+            }
+
+            // Clear all inputs
+            allInputs.forEach(input => {
+                input.value = '';
+                input.classList.remove('has-value');
+
+                const valueId = input.id + 'Value';
+                const tipId = input.id + 'Tip';
+
+                // Reset individual displays
+                document.getElementById(valueId).textContent = '$0';
+                document.getElementById(tipId).style.display = 'none';
+
+                // Clear from localStorage
+                localStorage.removeItem(input.id);
+            });
+
+            // Reset displays
+            totalAssetsDisplay.textContent = '$0';
+            totalLiabilitiesDisplay.textContent = '$0';
+            netWorthResult.textContent = '$0';
+            netWorthResult.className = 'result-value neutral';
+            helpfulMessage.textContent = 'Enter your assets and liabilities above to calculate your net worth in Canadian dollars.';
+            benchmarkMessage.style.display = 'none';
+            resultContainer.classList.remove('has-result');
+            meterFill.style.width = '0%';
+            meterFill.style.backgroundColor = 'var(--primary)';
+
+            // Update ARIA attributes
+            document.querySelector('.net-worth-meter').setAttribute('aria-valuenow', 0);
+
+            // Reset last net worth
+            lastNetWorth = 0;
+        });
+
+        // Function to check if any values have been entered
+        function hasValuesEntered() {
+            for (const input of allInputs) {
+                if (input.value && parseFloat(input.value) > 0) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        // Function to calculate total assets
+        function calculateTotalAssets() {
+            let total = 0;
+            assetInputs.forEach(input => {
+                total += parseFloat(input.value || 0);
+            });
+            return total;
+        }
+
+        // Function to calculate total liabilities
+        function calculateTotalLiabilities() {
+            let total = 0;
+            liabilityInputs.forEach(input => {
+                total += parseFloat(input.value || 0);
+            });
+            return total;
+        }
+
+        // Function to update totals in real-time
+        function updateTotals() {
+            const totalAssets = calculateTotalAssets();
+            const totalLiabilities = calculateTotalLiabilities();
+
+            // Update the display values
+            totalAssetsDisplay.textContent = formatCurrency(totalAssets);
+            totalLiabilitiesDisplay.textContent = formatCurrency(totalLiabilities);
+        }
+
+        // Function to get a personalized benchmark comparison
+        function getBenchmarkComparison(netWorth) {
+            // Simple age-based benchmark comparison
+            return "Compare your net worth to the Canadian averages in the table below. Remember that median values (the middle point) are often more representative than averages for most people.";
+        }
+
+        // Function to calculate net worth and update UI
+        function calculateNetWorth() {
+            const totalAssets = calculateTotalAssets();
+            const totalLiabilities = calculateTotalLiabilities();
+            const netWorth = totalAssets - totalLiabilities;
+
+            // Track change from last calculation for feedback
+            const isFirstCalculation = lastNetWorth === 0;
+            const netWorthChange = netWorth - lastNetWorth;
+            lastNetWorth = netWorth;
+
+            // Update result display with animation
+            netWorthResult.textContent = formatCurrency(netWorth);
+
+            // Set appropriate class and message based on net worth value
+            if (netWorth > 0) {
+                netWorthResult.className = 'result-value positive';
+                if (netWorth > 500000) {
+                    helpfulMessage.textContent = "Excellent job! Your net worth is substantially positive. Consider using your TFSA and RRSP to their full potential, and explore diverse investment strategies.";
+                } else if (netWorth > 100000) {
+                    helpfulMessage.textContent = "You have a strong positive net worth. Keep growing your registered accounts and consider increasing your investment allocations across TFSA and RRSP.";
+                } else {
+                    helpfulMessage.textContent = "You're on the right track with a positive net worth. Focus on building your emergency fund and increasing contributions to your TFSA and RRSP.";
+                }
+            } else if (netWorth < 0) {
+                netWorthResult.className = 'result-value negative';
+                if (netWorth < -100000) {
+                    helpfulMessage.textContent = "Your net worth is significantly negative. Develop a debt repayment strategy focusing first on high-interest debt while maintaining minimum RRSP contributions for tax benefits.";
+                } else {
+                    helpfulMessage.textContent = "Your net worth is currently negative. Focus on paying down high-interest debt first while building a small emergency fund in a TFSA.";
+                }
+            } else {
+                netWorthResult.className = 'result-value neutral';
+                helpfulMessage.textContent = "Your assets equal your liabilities. Work on increasing your savings rate and reducing debt to build positive net worth.";
+            }
+
+            // If not the first calculation, add feedback about the change
+            if (!isFirstCalculation) {
+                const changeText = netWorthChange > 0
+                    ? `That's an increase of ${formatCurrency(netWorthChange)} from your last calculation!`
+                    : netWorthChange < 0
+                        ? `That's a decrease of ${formatCurrency(Math.abs(netWorthChange))} from your last calculation.`
+                        : "That's unchanged from your last calculation.";
+
+                helpfulMessage.textContent += " " + changeText;
+            }
+        }
+
+        // Helper function to format currency
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('en-CA', {
+                style: 'currency',
+                currency: 'CAD',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0
+            }).format(amount);
+        }
+    });
+</script>
+</body>
+</html>

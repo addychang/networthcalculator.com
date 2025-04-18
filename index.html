@@ -442,13 +442,13 @@
 <header class="header" role="banner">
     <div class="container">
         <div class="d-flex justify-content-between align-items-center">
-            <div class="d-flex align-items-center">
-                <img src="/img/logo.png" alt="Net Worth Calculator Logo" class="site-logo me-2" id="site-logo">
-                <!-- Logo placeholder - will be replaced with actual logo -->
-            </div>
-            <button class="btn btn-outline-primary btn-sm" id="resetBtn" aria-label="Reset calculator">
-                <i class="fas fa-redo-alt me-1" aria-hidden="true"></i> Reset
-            </button>
+            <a href="/" aria-label="Back to Net Worth Calculator Home"> <!-- Link to homepage -->
+                <img src="/img/logo.png" alt="Net Worth Calculator Logo" class="site-logo" id="site-logo">
+                <!-- Make sure this path is correct -->
+            </a>
+            <nav aria-label="Main navigation">
+                <a href="/" class="btn btn-outline-primary btn-sm">Back to Calculator</a>
+            </nav>
         </div>
     </div>
 </header>

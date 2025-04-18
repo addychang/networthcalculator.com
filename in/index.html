@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- SEO Meta Tags -->
-    <title>Net Worth Calculator | Instantly Calculate & Track Your Net Worth Online</title>
-    <meta name="description" content="Use the free Net Worth Calculator at NetWorthCalculator.com to instantly determine your personal net worth. Enter your assets and liabilities, get step-by-step calculations, and compare your results to national averages. Start tracking your financial health today!">
-    <meta name="keywords" content="net worth calculator, calculate net worth, how to calculate net worth, personal finance, asset calculator, debt calculator, financial planning, wealth tracker, networth">
+    <title>Net Worth Calculator | Instantly Calculate & Track Your Net Worth Online - India</title>
+    <meta name="description" content="Use the free Net Worth Calculator at NetWorthCalculator.com to instantly determine your personal net worth in India. Enter your assets and liabilities, get step-by-step calculations, and compare your results to Indian averages. Start tracking your financial health today!">
+    <meta name="keywords" content="net worth calculator India, calculate net worth India, how to calculate net worth, personal finance India, asset calculator, debt calculator, financial planning India, wealth tracker, networth">
     <meta name="author" content="NetWorthCalculator.com">
 
     <!-- Open Graph / Social Media Meta Tags -->
-    <meta property="og:title" content="Net Worth Calculator | Instantly Calculate Your Net Worth Online">
-    <meta property="og:description" content="Calculate your net worth in minutes with our free online calculator. Compare your results to national benchmarks and get tips for improving your finances.">
+    <meta property="og:title" content="Net Worth Calculator | Instantly Calculate Your Net Worth Online - India">
+    <meta property="og:description" content="Calculate your net worth in minutes with our free online calculator for India. Compare your results to Indian benchmarks and get tips for improving your finances.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://NetWorthCalculator.com">
+    <meta property="og:url" content="https://NetWorthCalculator.com/in/">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -34,6 +34,9 @@
             --border-radius: 8px;
             --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
             --transition: all 0.3s ease;
+            --india-orange: #FF9933;
+            --india-green: #138808;
+            --india-blue: #000080;
         }
 
         body {
@@ -300,7 +303,7 @@
             padding: 1rem;
         }
 
-        .us-benchmarks {
+        .india-benchmarks {
             background-color: var(--primary-light);
             border-radius: var(--border-radius);
             padding: 1.5rem;
@@ -398,6 +401,15 @@
             border-radius: 2px;
         }
 
+        /* Indian style accents */
+        .india-accent {
+            background: linear-gradient(to right, var(--india-orange), white, var(--india-green));
+            height: 4px;
+            width: 100%;
+            margin: 10px 0;
+            border-radius: 2px;
+        }
+
         /* Print styles */
         @media print {
             body {
@@ -410,7 +422,7 @@
                 padding: 0;
             }
 
-            .header, .btn-calculate, .btn-reset, .benchmark-message, .us-benchmarks, .country-selector {
+            .header, .btn-calculate, .btn-reset, .benchmark-message, .india-benchmarks, .country-selector {
                 display: none;
             }
 
@@ -528,8 +540,8 @@
         {
             "@context": "https://schema.org",
             "@type": "WebApplication",
-            "name": "Personal Net Worth Calculator",
-            "description": "Calculate your personal net worth by tracking assets and liabilities. Compare to average net worth benchmarks by age.",
+            "name": "Personal Net Worth Calculator - India",
+            "description": "Calculate your personal net worth in India by tracking assets and liabilities. Compare to average net worth benchmarks by age.",
             "applicationCategory": "FinanceApplication",
             "operatingSystem": "Any",
             "offers": {
@@ -552,12 +564,12 @@
                 <div class="country-selector dropdown">
                     <button class="dropdown-toggle" type="button" id="countryDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                         <!-- Assuming flag images are in 'img/flags' folder -->
-                        <img src="/img/flags/us.png" alt="US flag" class="flag-icon" id="current-flag">
-                        <span id="current-country">US</span>
+                        <img src="/img/flags/in.png" alt="India flag" class="flag-icon" id="current-flag">
+                        <span id="current-country">IN</span>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="countryDropdown">
                         <li>
-                            <a class="dropdown-item active" href="/" data-country="us">
+                            <a class="dropdown-item" href="/" data-country="us">
                                 <img src="/img/flags/us.png" alt="US flag" class="country-flag">
                                 United States
                             </a>
@@ -581,7 +593,7 @@
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="/in/" data-country="in">
+                            <a class="dropdown-item active" href="/in/" data-country="in">
                                 <img src="/img/flags/in.png" alt="India flag" class="country-flag">
                                 India
                             </a>
@@ -602,6 +614,7 @@
         <div class="text-center mb-4">
             <h2>Calculate Your Net Worth</h2>
             <p class="text-muted">Track your financial health by adding up all your assets and subtracting your liabilities</p>
+            <div class="india-accent"></div>
         </div>
 
         <div class="row">
@@ -609,7 +622,7 @@
             <div class="col-md-6">
                 <h3 class="section-title">
                     <span><i class="fas fa-plus-circle me-2" aria-hidden="true"></i>Assets</span>
-                    <span class="section-total" id="totalAssets">$0</span>
+                    <span class="section-total" id="totalAssets">₹0</span>
                 </h3>
 
                 <!-- Real Estate -->
@@ -617,14 +630,14 @@
                     <div class="item-name">
                         <i class="fas fa-home" aria-hidden="true"></i>
                         <span>Real Estate</span>
-                        <span class="item-value" id="realEstateValue">$0</span>
+                        <span class="item-value" id="realEstateValue">₹0</span>
                     </div>
-                    <div class="item-description">Current market value of your home and any other real estate you own.</div>
+                    <div class="item-description">Current market value of your home, apartment, plots and any other real estate you own.</div>
                     <div class="input-group">
-                        <span class="input-group-text">$</span>
+                        <span class="input-group-text">₹</span>
                         <input type="number" class="form-control asset-input" id="realEstate" placeholder="0" min="0" aria-label="Real estate value">
                     </div>
-                    <div class="input-tip" id="realEstateTip">Include primary residence, vacation homes, investment properties, and land.</div>
+                    <div class="input-tip" id="realEstateTip">Include primary residence, ancestral property, agricultural land, commercial property, and plots.</div>
                 </div>
 
                 <!-- Cash & Bank Accounts -->
@@ -632,14 +645,14 @@
                     <div class="item-name">
                         <i class="fas fa-money-bill-wave" aria-hidden="true"></i>
                         <span>Cash & Bank Accounts</span>
-                        <span class="item-value" id="cashAccountsValue">$0</span>
+                        <span class="item-value" id="cashAccountsValue">₹0</span>
                     </div>
-                    <div class="item-description">Total in your checking and savings accounts, CDs, and cash on hand.</div>
+                    <div class="item-description">Total in your savings accounts, fixed deposits, and cash on hand.</div>
                     <div class="input-group">
-                        <span class="input-group-text">$</span>
+                        <span class="input-group-text">₹</span>
                         <input type="number" class="form-control asset-input" id="cashAccounts" placeholder="0" min="0" aria-label="Cash and bank accounts value">
                     </div>
-                    <div class="input-tip" id="cashAccountsTip">Include checking, savings, money market accounts, CDs, and physical cash.</div>
+                    <div class="input-tip" id="cashAccountsTip">Include savings accounts, current accounts, FDs, RDs, post office deposits, and physical cash.</div>
                 </div>
 
                 <!-- Retirement Accounts -->
@@ -647,14 +660,14 @@
                     <div class="item-name">
                         <i class="fas fa-piggy-bank" aria-hidden="true"></i>
                         <span>Retirement Accounts</span>
-                        <span class="item-value" id="retirementAccountsValue">$0</span>
+                        <span class="item-value" id="retirementAccountsValue">₹0</span>
                     </div>
-                    <div class="item-description">Value of your 401(k), IRA, 403(b), and other retirement accounts.</div>
+                    <div class="item-description">Value of your EPF, PPF, NPS, and other retirement/pension accounts.</div>
                     <div class="input-group">
-                        <span class="input-group-text">$</span>
+                        <span class="input-group-text">₹</span>
                         <input type="number" class="form-control asset-input" id="retirementAccounts" placeholder="0" min="0" aria-label="Retirement accounts value">
                     </div>
-                    <div class="input-tip" id="retirementAccountsTip">Include 401(k), Traditional IRA, Roth IRA, 403(b), SEP IRA, SIMPLE IRA, etc.</div>
+                    <div class="input-tip" id="retirementAccountsTip">Include Employee Provident Fund (EPF), Public Provident Fund (PPF), National Pension System (NPS), pension plans, etc.</div>
                 </div>
 
                 <!-- Investments -->
@@ -662,14 +675,14 @@
                     <div class="item-name">
                         <i class="fas fa-chart-line" aria-hidden="true"></i>
                         <span>Investments</span>
-                        <span class="item-value" id="investmentsValue">$0</span>
+                        <span class="item-value" id="investmentsValue">₹0</span>
                     </div>
-                    <div class="item-description">Stocks, bonds, mutual funds, ETFs and other non-retirement investments.</div>
+                    <div class="item-description">Mutual funds, stocks, bonds, gold, and other non-retirement investments.</div>
                     <div class="input-group">
-                        <span class="input-group-text">$</span>
+                        <span class="input-group-text">₹</span>
                         <input type="number" class="form-control asset-input" id="investments" placeholder="0" min="0" aria-label="Investments value">
                     </div>
-                    <div class="input-tip" id="investmentsTip">Include brokerage accounts, individual stocks, bonds, ETFs, mutual funds, REITs, etc.</div>
+                    <div class="input-tip" id="investmentsTip">Include equity mutual funds, stocks, bonds, gold/silver, ULIPs, ELSS, REITs, Crypto, and Chit funds.</div>
                 </div>
 
                 <!-- Vehicles -->
@@ -677,29 +690,29 @@
                     <div class="item-name">
                         <i class="fas fa-car" aria-hidden="true"></i>
                         <span>Vehicles</span>
-                        <span class="item-value" id="vehiclesValue">$0</span>
+                        <span class="item-value" id="vehiclesValue">₹0</span>
                     </div>
-                    <div class="item-description">Current market value of cars, boats, motorcycles, and other vehicles.</div>
+                    <div class="item-description">Current market value of cars, two-wheelers, and other vehicles.</div>
                     <div class="input-group">
-                        <span class="input-group-text">$</span>
+                        <span class="input-group-text">₹</span>
                         <input type="number" class="form-control asset-input" id="vehicles" placeholder="0" min="0" aria-label="Vehicles value">
                     </div>
-                    <div class="input-tip" id="vehiclesTip">Check Kelley Blue Book or NADA for accurate market values of your vehicles.</div>
+                    <div class="input-tip" id="vehiclesTip">Check OLX, CarWale, or BikeWale for accurate market values of your vehicles. Remember to use resale value.</div>
                 </div>
 
                 <!-- Personal Property -->
                 <div class="asset-card">
                     <div class="item-name">
-                        <i class="fas fa-couch" aria-hidden="true"></i>
-                        <span>Personal Property</span>
-                        <span class="item-value" id="personalPropertyValue">$0</span>
+                        <i class="fas fa-gem" aria-hidden="true"></i>
+                        <span>Personal Valuables</span>
+                        <span class="item-value" id="personalPropertyValue">₹0</span>
                     </div>
-                    <div class="item-description">Value of furniture, jewelry, collectibles, electronics, and other belongings.</div>
+                    <div class="item-description">Value of jewelry, collectibles, electronics, and other belongings.</div>
                     <div class="input-group">
-                        <span class="input-group-text">$</span>
-                        <input type="number" class="form-control asset-input" id="personalProperty" placeholder="0" min="0" aria-label="Personal property value">
+                        <span class="input-group-text">₹</span>
+                        <input type="number" class="form-control asset-input" id="personalProperty" placeholder="0" min="0" aria-label="Personal valuables value">
                     </div>
-                    <div class="input-tip" id="personalPropertyTip">Be conservative with estimates - use resale value, not replacement cost.</div>
+                    <div class="input-tip" id="personalPropertyTip">Include gold jewelry, furniture, electronics, art, antiques, and collectibles. Use current market value.</div>
                 </div>
 
                 <!-- Other Assets -->
@@ -707,14 +720,14 @@
                     <div class="item-name">
                         <i class="fas fa-star" aria-hidden="true"></i>
                         <span>Other Assets</span>
-                        <span class="item-value" id="otherAssetsValue">$0</span>
+                        <span class="item-value" id="otherAssetsValue">₹0</span>
                     </div>
-                    <div class="item-description">Business ownership, cash value of life insurance, HSAs, etc.</div>
+                    <div class="item-description">Business ownership, cash value of insurance policies, etc.</div>
                     <div class="input-group">
-                        <span class="input-group-text">$</span>
+                        <span class="input-group-text">₹</span>
                         <input type="number" class="form-control asset-input" id="otherAssets" placeholder="0" min="0" aria-label="Other assets value">
                     </div>
-                    <div class="input-tip" id="otherAssetsTip">Include business equity, HSA balances, cash value of life insurance, crypto, etc.</div>
+                    <div class="input-tip" id="otherAssetsTip">Include business equity, insurance policies with surrender value, intellectual property, and other assets.</div>
                 </div>
             </div>
 
@@ -722,22 +735,22 @@
             <div class="col-md-6">
                 <h3 class="section-title">
                     <span><i class="fas fa-minus-circle me-2" aria-hidden="true"></i>Liabilities</span>
-                    <span class="section-total" id="totalLiabilities">$0</span>
+                    <span class="section-total" id="totalLiabilities">₹0</span>
                 </h3>
 
-                <!-- Mortgage -->
+                <!-- Home Loan -->
                 <div class="liability-card">
                     <div class="item-name">
                         <i class="fas fa-house-damage" aria-hidden="true"></i>
-                        <span>Mortgage</span>
-                        <span class="item-value" id="mortgageValue">$0</span>
+                        <span>Home Loan</span>
+                        <span class="item-value" id="mortgageValue">₹0</span>
                     </div>
-                    <div class="item-description">Remaining balance on your home loan(s) and any HELOCs.</div>
+                    <div class="item-description">Remaining balance on your home loans and any property loans.</div>
                     <div class="input-group">
-                        <span class="input-group-text">$</span>
-                        <input type="number" class="form-control liability-input" id="mortgage" placeholder="0" min="0" aria-label="Mortgage value">
+                        <span class="input-group-text">₹</span>
+                        <input type="number" class="form-control liability-input" id="mortgage" placeholder="0" min="0" aria-label="Home loan value">
                     </div>
-                    <div class="input-tip" id="mortgageTip">Include primary mortgage, second mortgage, home equity loans, and HELOCs.</div>
+                    <div class="input-tip" id="mortgageTip">Include all home loans, property loans, LAP (Loan Against Property), and builder finance outstanding amount.</div>
                 </div>
 
                 <!-- Credit Card Debt -->
@@ -745,44 +758,44 @@
                     <div class="item-name">
                         <i class="fas fa-credit-card" aria-hidden="true"></i>
                         <span>Credit Card Debt</span>
-                        <span class="item-value" id="creditCardDebtValue">$0</span>
+                        <span class="item-value" id="creditCardDebtValue">₹0</span>
                     </div>
                     <div class="item-description">Total balances owed on all your credit cards.</div>
                     <div class="input-group">
-                        <span class="input-group-text">$</span>
+                        <span class="input-group-text">₹</span>
                         <input type="number" class="form-control liability-input" id="creditCardDebt" placeholder="0" min="0" aria-label="Credit card debt value">
                     </div>
-                    <div class="input-tip" id="creditCardDebtTip">Include all credit card balances, even if you plan to pay them off this month.</div>
+                    <div class="input-tip" id="creditCardDebtTip">Include all credit card balances, EMI on credit cards, and buy-now-pay-later schemes.</div>
                 </div>
 
-                <!-- Student Loans -->
+                <!-- Education Loans -->
                 <div class="liability-card">
                     <div class="item-name">
                         <i class="fas fa-graduation-cap" aria-hidden="true"></i>
-                        <span>Student Loans</span>
-                        <span class="item-value" id="studentLoansValue">$0</span>
+                        <span>Education Loans</span>
+                        <span class="item-value" id="studentLoansValue">₹0</span>
                     </div>
-                    <div class="item-description">Remaining balance on all student loans.</div>
+                    <div class="item-description">Remaining balance on all education loans.</div>
                     <div class="input-group">
-                        <span class="input-group-text">$</span>
-                        <input type="number" class="form-control liability-input" id="studentLoans" placeholder="0" min="0" aria-label="Student loans value">
+                        <span class="input-group-text">₹</span>
+                        <input type="number" class="form-control liability-input" id="studentLoans" placeholder="0" min="0" aria-label="Education loans value">
                     </div>
-                    <div class="input-tip" id="studentLoansTip">Include federal and private student loans, both yours and any you've cosigned.</div>
+                    <div class="input-tip" id="studentLoansTip">Include all education loans from banks, NBFCs, or government schemes, both yours and any you've cosigned.</div>
                 </div>
 
                 <!-- Auto Loans -->
                 <div class="liability-card">
                     <div class="item-name">
                         <i class="fas fa-car-side" aria-hidden="true"></i>
-                        <span>Auto Loans</span>
-                        <span class="item-value" id="autoLoansValue">$0</span>
+                        <span>Vehicle Loans</span>
+                        <span class="item-value" id="autoLoansValue">₹0</span>
                     </div>
-                    <div class="item-description">Remaining balance on vehicle loans or leases.</div>
+                    <div class="item-description">Remaining balance on car, two-wheeler loans or leases.</div>
                     <div class="input-group">
-                        <span class="input-group-text">$</span>
-                        <input type="number" class="form-control liability-input" id="autoLoans" placeholder="0" min="0" aria-label="Auto loans value">
+                        <span class="input-group-text">₹</span>
+                        <input type="number" class="form-control liability-input" id="autoLoans" placeholder="0" min="0" aria-label="Vehicle loans value">
                     </div>
-                    <div class="input-tip" id="autoLoansTip">Include car loans, lease payoff amounts, and motorcycle/boat loans.</div>
+                    <div class="input-tip" id="autoLoansTip">Include car loans, two-wheeler loans, commercial vehicle loans, and lease agreements.</div>
                 </div>
 
                 <!-- Personal Loans -->
@@ -790,14 +803,14 @@
                     <div class="item-name">
                         <i class="fas fa-handshake" aria-hidden="true"></i>
                         <span>Personal Loans</span>
-                        <span class="item-value" id="personalLoansValue">$0</span>
+                        <span class="item-value" id="personalLoansValue">₹0</span>
                     </div>
-                    <div class="item-description">Balance on personal loans from banks, credit unions, or individuals.</div>
+                    <div class="item-description">Balance on personal loans from banks, NBFCs, or individuals.</div>
                     <div class="input-group">
-                        <span class="input-group-text">$</span>
+                        <span class="input-group-text">₹</span>
                         <input type="number" class="form-control liability-input" id="personalLoans" placeholder="0" min="0" aria-label="Personal loans value">
                     </div>
-                    <div class="input-tip" id="personalLoansTip">Include bank loans, credit union loans, P2P loans, and money from family/friends.</div>
+                    <div class="input-tip" id="personalLoansTip">Include bank loans, gold loans, loans from NBFCs like Bajaj Finserv, and money borrowed from family/friends.</div>
                 </div>
 
                 <!-- Medical Debt -->
@@ -805,14 +818,14 @@
                     <div class="item-name">
                         <i class="fas fa-hospital" aria-hidden="true"></i>
                         <span>Medical Debt</span>
-                        <span class="item-value" id="medicalDebtValue">$0</span>
+                        <span class="item-value" id="medicalDebtValue">₹0</span>
                     </div>
                     <div class="item-description">Outstanding medical bills or healthcare-related debt.</div>
                     <div class="input-group">
-                        <span class="input-group-text">$</span>
+                        <span class="input-group-text">₹</span>
                         <input type="number" class="form-control liability-input" id="medicalDebt" placeholder="0" min="0" aria-label="Medical debt value">
                     </div>
-                    <div class="input-tip" id="medicalDebtTip">Include hospital bills, payment plans, and other healthcare-related debt.</div>
+                    <div class="input-tip" id="medicalDebtTip">Include hospital bills, payment plans for surgeries, dental work, and other healthcare-related debt.</div>
                 </div>
 
                 <!-- Other Debt -->
@@ -820,14 +833,14 @@
                     <div class="item-name">
                         <i class="fas fa-exclamation-circle" aria-hidden="true"></i>
                         <span>Other Debt</span>
-                        <span class="item-value" id="otherDebtValue">$0</span>
+                        <span class="item-value" id="otherDebtValue">₹0</span>
                     </div>
                     <div class="item-description">Business loans, tax debt, other outstanding liabilities.</div>
                     <div class="input-group">
-                        <span class="input-group-text">$</span>
+                        <span class="input-group-text">₹</span>
                         <input type="number" class="form-control liability-input" id="otherDebt" placeholder="0" min="0" aria-label="Other debt value">
                     </div>
-                    <div class="input-tip" id="otherDebtTip">Include business loans, tax debt, payday loans, and any other debts.</div>
+                    <div class="input-tip" id="otherDebtTip">Include business loans, MSME loans, Mudra loans, tax debt, loan against securities, and any other debts.</div>
                 </div>
             </div>
         </div>
@@ -848,7 +861,7 @@
         <!-- Results Section -->
         <div class="result-container" id="resultContainer" aria-live="polite">
             <div class="result-label">Your Net Worth</div>
-            <div class="result-value neutral" id="netWorthResult">$0</div>
+            <div class="result-value neutral" id="netWorthResult">₹0</div>
 
             <div class="net-worth-meter" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
                 <div class="meter-fill" id="meterFill"></div>
@@ -861,14 +874,14 @@
             <div class="benchmark-message" id="benchmarkMessage"></div>
         </div>
 
-        <!-- US Benchmarks Section -->
-        <section class="us-benchmarks">
-            <h4 class="benchmark-title"><i class="fas fa-chart-bar me-2" aria-hidden="true"></i>Average Net Worth by Age in the United States</h4>
+        <!-- India Benchmarks Section -->
+        <section class="india-benchmarks">
+            <h4 class="benchmark-title"><i class="fas fa-chart-bar me-2" aria-hidden="true"></i>Average Net Worth by Age in India</h4>
 
             <div class="row">
                 <div class="col-md-6">
                     <table class="benchmark-table">
-                        <caption class="sr-only">Net worth benchmarks by age group in the US</caption>
+                        <caption class="sr-only">Net worth benchmarks by age group in India</caption>
                         <thead>
                         <tr>
                             <th scope="col">Age Group</th>
@@ -878,49 +891,50 @@
                         </thead>
                         <tbody>
                         <tr>
-                            <td>Under 35</td>
-                            <td>$13,900</td>
-                            <td>$76,300</td>
+                            <td>Under 30</td>
+                            <td>₹5 Lakh</td>
+                            <td>₹12 Lakh</td>
                         </tr>
                         <tr>
-                            <td>35-44</td>
-                            <td>$91,300</td>
-                            <td>$436,200</td>
+                            <td>30-40</td>
+                            <td>₹20 Lakh</td>
+                            <td>₹45 Lakh</td>
                         </tr>
                         <tr>
-                            <td>45-54</td>
-                            <td>$168,600</td>
-                            <td>$833,200</td>
+                            <td>40-50</td>
+                            <td>₹40 Lakh</td>
+                            <td>₹85 Lakh</td>
                         </tr>
                         <tr>
-                            <td>55-64</td>
-                            <td>$212,500</td>
-                            <td>$1,175,900</td>
+                            <td>50-60</td>
+                            <td>₹75 Lakh</td>
+                            <td>₹1.2 Crore</td>
                         </tr>
                         <tr>
-                            <td>65-74</td>
-                            <td>$266,400</td>
-                            <td>$1,217,700</td>
+                            <td>60-70</td>
+                            <td>₹90 Lakh</td>
+                            <td>₹1.6 Crore</td>
                         </tr>
                         <tr>
-                            <td>75+</td>
-                            <td>$254,800</td>
-                            <td>$977,600</td>
+                            <td>70+</td>
+                            <td>₹80 Lakh</td>
+                            <td>₹1.4 Crore</td>
                         </tr>
                         </tbody>
                     </table>
-                    <p class="small text-muted">Source: Federal Reserve Survey of Consumer Finances (most recent data)</p>
+                    <p class="small text-muted">Source: Based on household wealth surveys in urban India (estimates)</p>
                 </div>
 
                 <div class="col-md-6">
-                    <h5 class="mb-3">Tips to Improve Your Net Worth</h5>
+                    <h5 class="mb-3">Tips to Improve Your Net Worth in India</h5>
                     <ul class="tips-list">
-                        <li><strong>Pay off high-interest debt first</strong> - Focus on credit cards and personal loans.</li>
-                        <li><strong>Build an emergency fund</strong> - Aim for 3-6 months of expenses.</li>
-                        <li><strong>Maximize retirement contributions</strong> - Take advantage of employer matching.</li>
-                        <li><strong>Invest regularly</strong> - Use tax-advantaged accounts and consistent contributions.</li>
-                        <li><strong>Increase your income</strong> - Develop skills for career advancement or start a side hustle.</li>
-                        <li><strong>Create a budget</strong> - Track spending and find areas to save more money.</li>
+                        <li><strong>Pay off high-interest debt first</strong> - Focus on credit cards and personal loans where rates can exceed 30% p.a.</li>
+                        <li><strong>Create an emergency fund</strong> - Aim for 6-12 months of expenses in a liquid account.</li>
+                        <li><strong>Maximize tax-saving investments</strong> - Utilize Section 80C instruments like PPF, ELSS, and NPS.</li>
+                        <li><strong>Invest in equity for long-term</strong> - Consider SIPs in mutual funds for disciplined investing.</li>
+                        <li><strong>Purchase adequate insurance</strong> - Term life, health insurance, and property insurance protect your assets.</li>
+                        <li><strong>Have a retirement strategy</strong> - Combine EPF, PPF, NPS, and mutual funds for retirement corpus.</li>
+                        <li><strong>Consider real estate carefully</strong> - Don't overleverage for property; rental yields matter.</li>
                     </ul>
                 </div>
             </div>
@@ -937,7 +951,7 @@
                     <h5 class="info-card-title"><i class="fas fa-question-circle me-2" aria-hidden="true"></i>What Is Net Worth?</h5>
                 </div>
                 <div class="info-card-body">
-                    <p class="mb-0">Net worth is the difference between what you own (assets) and what you owe (liabilities). It's a snapshot of your financial position at a specific point in time.</p>
+                    <p class="mb-0">Net worth is the difference between what you own (assets) and what you owe (liabilities). It's a snapshot of your financial position and indicates your overall financial health.</p>
                 </div>
             </div>
         </div>
@@ -948,7 +962,7 @@
                     <h5 class="info-card-title"><i class="fas fa-plus-circle me-2" aria-hidden="true"></i>About Assets</h5>
                 </div>
                 <div class="info-card-body">
-                    <p class="mb-0">Assets are things you own that have monetary value. They include cash, investments, property, and personal possessions that could be sold for cash.</p>
+                    <p class="mb-0">Assets are things you own that have monetary value. In India, common assets include property, FDs, gold, vehicles, mutual funds, and PPF/EPF accounts that can be converted to cash.</p>
                 </div>
             </div>
         </div>
@@ -959,7 +973,7 @@
                     <h5 class="info-card-title"><i class="fas fa-minus-circle me-2" aria-hidden="true"></i>About Liabilities</h5>
                 </div>
                 <div class="info-card-body">
-                    <p class="mb-0">Liabilities are debts or obligations you owe to others. These include mortgages, loans, credit card balances, and any other forms of debt.</p>
+                    <p class="mb-0">Liabilities are debts or obligations you owe to others. These include home loans, personal loans, vehicle loans, education loans, credit card debt, and any informal loans from family.</p>
                 </div>
             </div>
         </div>
@@ -970,7 +984,7 @@
                     <h5 class="info-card-title"><i class="fas fa-chart-line me-2" aria-hidden="true"></i>Why Track Net Worth?</h5>
                 </div>
                 <div class="info-card-body">
-                    <p class="mb-0">Tracking your net worth over time helps you measure financial progress, identify areas for improvement, and make better decisions about saving, spending, and investing.</p>
+                    <p class="mb-0">Tracking your net worth helps you measure financial progress, make informed decisions about saving vs. spending, and plan for major life goals like buying property, children's education, and retirement.</p>
                 </div>
             </div>
         </div>
@@ -1176,7 +1190,7 @@
                 const tipId = input.id + 'Tip';
 
                 // Reset individual displays
-                document.getElementById(valueId).textContent = '$0';
+                document.getElementById(valueId).textContent = '₹0';
                 document.getElementById(tipId).style.display = 'none';
 
                 // Clear from localStorage
@@ -1184,9 +1198,9 @@
             });
 
             // Reset displays
-            totalAssetsDisplay.textContent = '$0';
-            totalLiabilitiesDisplay.textContent = '$0';
-            netWorthResult.textContent = '$0';
+            totalAssetsDisplay.textContent = '₹0';
+            totalLiabilitiesDisplay.textContent = '₹0';
+            netWorthResult.textContent = '₹0';
             netWorthResult.className = 'result-value neutral';
             helpfulMessage.textContent = 'Enter your assets and liabilities above to calculate your net worth.';
             benchmarkMessage.style.display = 'none';
@@ -1241,8 +1255,8 @@
 
         // Function to get a personalized benchmark comparison
         function getBenchmarkComparison(netWorth) {
-            // Simple age-based benchmark comparison
-            return "Compare your net worth to the US averages in the table below. Remember that median values (the middle point) are often more representative than averages for most people.";
+            // Simple age-based benchmark comparison for India
+            return "Compare your net worth to the Indian averages in the table below. Remember that median values are often more representative than averages for most people. In India, net worth often depends on location (metro vs. non-metro) and profession.";
         }
 
         // Function to calculate net worth and update UI
@@ -1262,23 +1276,23 @@
             // Set appropriate class and message based on net worth value
             if (netWorth > 0) {
                 netWorthResult.className = 'result-value positive';
-                if (netWorth > 500000) {
-                    helpfulMessage.textContent = "Excellent job! Your net worth is substantially positive. Continue to diversify investments and consider wealth preservation strategies.";
-                } else if (netWorth > 100000) {
-                    helpfulMessage.textContent = "You have a strong positive net worth. Keep growing your retirement accounts and consider increasing your investment allocations.";
+                if (netWorth > 10000000) { // 1 crore+
+                    helpfulMessage.textContent = "Excellent job! Your net worth is substantially positive. Consider diversifying investments across asset classes and exploring wealth management services.";
+                } else if (netWorth > 2500000) { // 25 lakh+
+                    helpfulMessage.textContent = "You have a strong positive net worth. Focus on growing your retirement accounts and consider tax-optimized investment strategies.";
                 } else {
-                    helpfulMessage.textContent = "You're on the right track with a positive net worth. Focus on building your emergency fund and increasing retirement contributions.";
+                    helpfulMessage.textContent = "You're on the right track with a positive net worth. Focus on building your emergency fund and increasing your SIP contributions.";
                 }
             } else if (netWorth < 0) {
                 netWorthResult.className = 'result-value negative';
-                if (netWorth < -100000) {
-                    helpfulMessage.textContent = "Your net worth is significantly negative. Develop a debt repayment strategy focusing first on high-interest debt while maintaining minimum retirement contributions.";
+                if (netWorth < -2500000) { // -25 lakh+
+                    helpfulMessage.textContent = "Your net worth is significantly negative. Develop a debt repayment strategy focusing first on high-interest loans while maintaining minimum contributions to EPF/PPF.";
                 } else {
-                    helpfulMessage.textContent = "Your net worth is currently negative. Focus on paying down high-interest debt first while building a small emergency fund.";
+                    helpfulMessage.textContent = "Your net worth is currently negative. Focus on paying down high-interest debt like credit cards and personal loans first while building a small emergency fund.";
                 }
             } else {
                 netWorthResult.className = 'result-value neutral';
-                helpfulMessage.textContent = "Your assets equal your liabilities. Work on increasing your savings rate and reducing debt to build positive net worth.";
+                helpfulMessage.textContent = "Your assets equal your liabilities. Consider increasing your monthly SIPs and focusing on reducing high-interest debt to build positive net worth.";
             }
 
             // If not the first calculation, add feedback about the change
@@ -1293,14 +1307,22 @@
             }
         }
 
-        // Helper function to format currency
+        // Helper function to format currency in Indian format
         function formatCurrency(amount) {
-            return new Intl.NumberFormat('en-US', {
-                style: 'currency',
-                currency: 'USD',
-                minimumFractionDigits: 0,
-                maximumFractionDigits: 0
-            }).format(amount);
+            // Indian number formatting (with lakhs and crores)
+            if (Math.abs(amount) >= 10000000) { // 1 crore or more
+                return "₹" + (amount / 10000000).toFixed(2) + " Cr";
+            } else if (Math.abs(amount) >= 100000) { // 1 lakh or more
+                return "₹" + (amount / 100000).toFixed(2) + " Lakh";
+            } else {
+                // Regular formatting for smaller numbers
+                return new Intl.NumberFormat('en-IN', {
+                    style: 'currency',
+                    currency: 'INR',
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0
+                }).format(amount);
+            }
         }
     });
 </script>

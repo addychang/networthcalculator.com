@@ -7,7 +7,7 @@
     <!-- SEO Meta Tags -->
     <title>Net Worth Calculator | Instantly Calculate & Track Your Net Worth in Canada</title>
     <meta name="description" content="Use the free Canadian Net Worth Calculator at NetWorthCalculator.com to instantly determine your personal net worth. Enter your assets and liabilities, get step-by-step calculations, and compare your results to Canadian averages. Start tracking your financial health today!">
-    <meta name="keywords" content="net worth calculator, calculate net worth, Canadian net worth, personal finance, asset calculator, debt calculator, financial planning, wealth tracker, networth, Canada">
+    <meta name="keywords" content="net worth calculator, calculate net worth, Canadian net worth, personal finance, asset calculator, debt calculator, financial planning, wealth tracker, networth, Canada, RRSP, TFSA">
     <meta name="author" content="NetWorthCalculator.com">
 
     <!-- Open Graph / Social Media Meta Tags -->
@@ -398,6 +398,52 @@
             border-radius: 2px;
         }
 
+        /* Province selector */
+        .province-selector {
+            margin-bottom: 20px;
+        }
+
+        .province-selector select {
+            border-radius: var(--border-radius);
+            padding: 8px 12px;
+            border: 1px solid var(--medium-gray);
+            width: 100%;
+            max-width: 300px;
+        }
+
+        /* Contribution room trackers */
+        .contribution-room {
+            background-color: var(--light-gray);
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .contribution-tracker {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .tracker-bar {
+            flex-grow: 1;
+            height: 12px;
+            background-color: var(--medium-gray);
+            border-radius: 6px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .tracker-fill {
+            height: 100%;
+            background-color: var(--primary);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
         /* Print styles */
         @media print {
             body {
@@ -410,7 +456,7 @@
                 padding: 0;
             }
 
-            .header, .btn-calculate, .btn-reset, .benchmark-message, .ca-benchmarks, .country-selector {
+            .header, .btn-calculate, .btn-reset, .benchmark-message, .ca-benchmarks, .country-selector, .province-selector {
                 display: none;
             }
 
@@ -590,7 +636,10 @@
                 </div>
             </div>
             <nav aria-label="Main navigation" class="header-actions">
-                <!-- Back to Calculator button removed -->
+                <!-- Language toggle button - Adding French support for Canadian users -->
+                <button id="languageToggle" class="btn btn-sm btn-outline-secondary me-2" aria-label="Switch language">
+                    <span id="languageText">Français</span>
+                </button>
             </nav>
         </div>
     </div>
@@ -602,6 +651,27 @@
         <div class="text-center mb-4">
             <h2>Calculate Your Net Worth</h2>
             <p class="text-muted">Track your financial health by adding up all your assets and subtracting your liabilities in Canadian dollars</p>
+        </div>
+
+        <!-- Province selector - New addition for Canadian regional differences -->
+        <div class="province-selector text-center">
+            <label for="provinceSelect">Select your province for more accurate benchmarks:</label>
+            <select id="provinceSelect" class="form-select mx-auto">
+                <option value="national">National Average</option>
+                <option value="AB">Alberta</option>
+                <option value="BC">British Columbia</option>
+                <option value="MB">Manitoba</option>
+                <option value="NB">New Brunswick</option>
+                <option value="NL">Newfoundland and Labrador</option>
+                <option value="NS">Nova Scotia</option>
+                <option value="ON">Ontario</option>
+                <option value="PE">Prince Edward Island</option>
+                <option value="QC">Quebec</option>
+                <option value="SK">Saskatchewan</option>
+                <option value="NT">Northwest Territories</option>
+                <option value="NU">Nunavut</option>
+                <option value="YT">Yukon</option>
+            </select>
         </div>
 
         <div class="row">
@@ -622,9 +692,9 @@
                     <div class="item-description">Current market value of your home and any other real estate you own.</div>
                     <div class="input-group">
                         <span class="input-group-text">$</span>
-                        <input type="number" class="form-control asset-input" id="realEstate" placeholder="0" min="0" aria-label="Real estate value">
+                        <input type="number" class="form-control asset-input" id="realEstate" placeholder="0" min="0" inputmode="decimal" aria-label="Real estate value">
                     </div>
-                    <div class="input-tip" id="realEstateTip">Include primary residence, cottage, income properties, and land.</div>
+                    <div class="input-tip" id="realEstateTip">Include primary residence, cottage, income properties, and land. For property in hot markets like Toronto or Vancouver, consider recent comparable sales.</div>
                 </div>
 
                 <!-- Cash & Bank Accounts -->
@@ -637,9 +707,9 @@
                     <div class="item-description">Total in your chequing and savings accounts, GICs, and cash on hand.</div>
                     <div class="input-group">
                         <span class="input-group-text">$</span>
-                        <input type="number" class="form-control asset-input" id="cashAccounts" placeholder="0" min="0" aria-label="Cash and bank accounts value">
+                        <input type="number" class="form-control asset-input" id="cashAccounts" placeholder="0" min="0" inputmode="decimal" aria-label="Cash and bank accounts value">
                     </div>
-                    <div class="input-tip" id="cashAccountsTip">Include chequing, savings, high-interest savings accounts, GICs, and physical cash.</div>
+                    <div class="input-tip" id="cashAccountsTip">Include chequing, savings, high-interest savings accounts, GICs, and physical cash. Consider EQ Bank, Tangerine, or other high-interest options for better returns.</div>
                 </div>
 
                 <!-- Registered Accounts -->
@@ -652,9 +722,9 @@
                     <div class="item-description">Value of your RRSP, TFSA, RESP, RDSP, and other registered accounts.</div>
                     <div class="input-group">
                         <span class="input-group-text">$</span>
-                        <input type="number" class="form-control asset-input" id="retirementAccounts" placeholder="0" min="0" aria-label="Registered accounts value">
+                        <input type="number" class="form-control asset-input" id="retirementAccounts" placeholder="0" min="0" inputmode="decimal" aria-label="Registered accounts value">
                     </div>
-                    <div class="input-tip" id="retirementAccountsTip">Include RRSP, TFSA, RESP, RDSP, LIRA, RPP, and Group RRSP balances.</div>
+                    <div class="input-tip" id="retirementAccountsTip">Include RRSP, TFSA, RESP (including CESG grants), RDSP, LIRA, RPP, and Group RRSP balances. For Quebec residents, include QESI grants in RESP totals.</div>
                 </div>
 
                 <!-- Non-Registered Investments -->
@@ -667,9 +737,9 @@
                     <div class="item-description">Stocks, bonds, mutual funds, ETFs and other non-registered investments.</div>
                     <div class="input-group">
                         <span class="input-group-text">$</span>
-                        <input type="number" class="form-control asset-input" id="investments" placeholder="0" min="0" aria-label="Investments value">
+                        <input type="number" class="form-control asset-input" id="investments" placeholder="0" min="0" inputmode="decimal" aria-label="Investments value">
                     </div>
-                    <div class="input-tip" id="investmentsTip">Include non-registered brokerage accounts, individual stocks, bonds, ETFs, mutual funds, and dividend-paying investments.</div>
+                    <div class="input-tip" id="investmentsTip">Include non-registered brokerage accounts (like Questrade, Wealthsimple), individual stocks, bonds, ETFs, mutual funds, and dividend-paying investments. Consider ACB for tax purposes.</div>
                 </div>
 
                 <!-- Vehicles -->
@@ -682,9 +752,9 @@
                     <div class="item-description">Current market value of cars, boats, motorcycles, and other vehicles.</div>
                     <div class="input-group">
                         <span class="input-group-text">$</span>
-                        <input type="number" class="form-control asset-input" id="vehicles" placeholder="0" min="0" aria-label="Vehicles value">
+                        <input type="number" class="form-control asset-input" id="vehicles" placeholder="0" min="0" inputmode="decimal" aria-label="Vehicles value">
                     </div>
-                    <div class="input-tip" id="vehiclesTip">Check Canadian Black Book or AutoTrader for accurate market values of your vehicles.</div>
+                    <div class="input-tip" id="vehiclesTip">Check Canadian Black Book, Autotrader.ca, or Kijiji for accurate market values of your vehicles. Remember that vehicles depreciate quickly in Canada's climate.</div>
                 </div>
 
                 <!-- Personal Property -->
@@ -697,9 +767,9 @@
                     <div class="item-description">Value of furniture, jewelry, collectibles, electronics, and other belongings.</div>
                     <div class="input-group">
                         <span class="input-group-text">$</span>
-                        <input type="number" class="form-control asset-input" id="personalProperty" placeholder="0" min="0" aria-label="Personal property value">
+                        <input type="number" class="form-control asset-input" id="personalProperty" placeholder="0" min="0" inputmode="decimal" aria-label="Personal property value">
                     </div>
-                    <div class="input-tip" id="personalPropertyTip">Be conservative with estimates - use resale value, not replacement cost.</div>
+                    <div class="input-tip" id="personalPropertyTip">Be conservative with estimates - use resale value on Kijiji or Facebook Marketplace, not replacement cost. Consider contents insurance values as a reference.</div>
                 </div>
 
                 <!-- Other Assets -->
@@ -712,9 +782,9 @@
                     <div class="item-description">Business ownership, cash value of life insurance, cryptocurrency, etc.</div>
                     <div class="input-group">
                         <span class="input-group-text">$</span>
-                        <input type="number" class="form-control asset-input" id="otherAssets" placeholder="0" min="0" aria-label="Other assets value">
+                        <input type="number" class="form-control asset-input" id="otherAssets" placeholder="0" min="0" inputmode="decimal" aria-label="Other assets value">
                     </div>
-                    <div class="input-tip" id="otherAssetsTip">Include business equity, cash value of life insurance, cryptocurrency, and valuable collectibles.</div>
+                    <div class="input-tip" id="otherAssetsTip">Include business equity, cash value of life insurance, cryptocurrency, valuable collectibles, and future tax refunds. For Quebec or Indigenous residents, include special tax credits or benefits.</div>
                 </div>
             </div>
 
@@ -735,9 +805,9 @@
                     <div class="item-description">Remaining balance on your home loan(s) and any HELOCs.</div>
                     <div class="input-group">
                         <span class="input-group-text">$</span>
-                        <input type="number" class="form-control liability-input" id="mortgage" placeholder="0" min="0" aria-label="Mortgage value">
+                        <input type="number" class="form-control liability-input" id="mortgage" placeholder="0" min="0" inputmode="decimal" aria-label="Mortgage value">
                     </div>
-                    <div class="input-tip" id="mortgageTip">Include primary mortgage, second mortgage, home equity lines of credit (HELOCs), and reverse mortgages.</div>
+                    <div class="input-tip" id="mortgageTip">Include primary mortgage, second mortgage, home equity lines of credit (HELOCs), and reverse mortgages. Check your most recent mortgage statement or online banking for accurate balances.</div>
                 </div>
 
                 <!-- Credit Card Debt -->
@@ -750,9 +820,9 @@
                     <div class="item-description">Total balances owed on all your credit cards.</div>
                     <div class="input-group">
                         <span class="input-group-text">$</span>
-                        <input type="number" class="form-control liability-input" id="creditCardDebt" placeholder="0" min="0" aria-label="Credit card debt value">
+                        <input type="number" class="form-control liability-input" id="creditCardDebt" placeholder="0" min="0" inputmode="decimal" aria-label="Credit card debt value">
                     </div>
-                    <div class="input-tip" id="creditCardDebtTip">Include all credit card balances, even if you plan to pay them off this month.</div>
+                    <div class="input-tip" id="creditCardDebtTip">Include all credit card balances, even if you plan to pay them off this month. Canadian credit cards typically charge 19.99% interest or higher, making them a priority for debt reduction.</div>
                 </div>
 
                 <!-- Student Loans -->
@@ -765,9 +835,9 @@
                     <div class="item-description">Remaining balance on all student loans.</div>
                     <div class="input-group">
                         <span class="input-group-text">$</span>
-                        <input type="number" class="form-control liability-input" id="studentLoans" placeholder="0" min="0" aria-label="Student loans value">
+                        <input type="number" class="form-control liability-input" id="studentLoans" placeholder="0" min="0" inputmode="decimal" aria-label="Student loans value">
                     </div>
-                    <div class="input-tip" id="studentLoansTip">Include Canada Student Loans, provincial student loans, OSAP, and any private education loans.</div>
+                    <div class="input-tip" id="studentLoansTip">Include Canada Student Loans, provincial student loans (OSAP, StudentAid BC, etc.), and any private education loans. Remember that interest on government student loans qualifies for a tax credit.</div>
                 </div>
 
                 <!-- Auto Loans -->
@@ -780,9 +850,9 @@
                     <div class="item-description">Remaining balance on vehicle loans or leases.</div>
                     <div class="input-group">
                         <span class="input-group-text">$</span>
-                        <input type="number" class="form-control liability-input" id="autoLoans" placeholder="0" min="0" aria-label="Auto loans value">
+                        <input type="number" class="form-control liability-input" id="autoLoans" placeholder="0" min="0" inputmode="decimal" aria-label="Auto loans value">
                     </div>
-                    <div class="input-tip" id="autoLoansTip">Include car loans, lease payoff amounts, and motorcycle/boat loans.</div>
+                    <div class="input-tip" id="autoLoansTip">Include car loans, lease payoff amounts (if you own at end of lease), and motorcycle/boat loans. Be cautious with long-term auto loans that can lead to negative equity in Canada's climate.</div>
                 </div>
 
                 <!-- Personal Loans -->
@@ -795,9 +865,9 @@
                     <div class="item-description">Balance on personal loans from banks, credit unions, or individuals.</div>
                     <div class="input-group">
                         <span class="input-group-text">$</span>
-                        <input type="number" class="form-control liability-input" id="personalLoans" placeholder="0" min="0" aria-label="Personal loans value">
+                        <input type="number" class="form-control liability-input" id="personalLoans" placeholder="0" min="0" inputmode="decimal" aria-label="Personal loans value">
                     </div>
-                    <div class="input-tip" id="personalLoansTip">Include bank loans, credit union loans, and money borrowed from family/friends.</div>
+                    <div class="input-tip" id="personalLoansTip">Include bank loans, credit union loans, and money borrowed from family/friends. Canadian credit unions often offer better rates than major banks for personal loans.</div>
                 </div>
 
                 <!-- Line of Credit -->
@@ -810,9 +880,9 @@
                     <div class="item-description">Outstanding balances on personal lines of credit (excluding HELOCs).</div>
                     <div class="input-group">
                         <span class="input-group-text">$</span>
-                        <input type="number" class="form-control liability-input" id="medicalDebt" placeholder="0" min="0" aria-label="Line of credit value">
+                        <input type="number" class="form-control liability-input" id="medicalDebt" placeholder="0" min="0" inputmode="decimal" aria-label="Line of credit value">
                     </div>
-                    <div class="input-tip" id="medicalDebtTip">Include unsecured lines of credit, student lines of credit, and other personal lines of credit.</div>
+                    <div class="input-tip" id="medicalDebtTip">Include unsecured lines of credit, student lines of credit, and other personal lines of credit. These are very common in Canada and typically offer better rates than credit cards.</div>
                 </div>
 
                 <!-- Other Debt -->
@@ -825,15 +895,54 @@
                     <div class="item-description">Business loans, CRA debt, other outstanding liabilities.</div>
                     <div class="input-group">
                         <span class="input-group-text">$</span>
-                        <input type="number" class="form-control liability-input" id="otherDebt" placeholder="0" min="0" aria-label="Other debt value">
+                        <input type="number" class="form-control liability-input" id="otherDebt" placeholder="0" min="0" inputmode="decimal" aria-label="Other debt value">
                     </div>
-                    <div class="input-tip" id="otherDebtTip">Include business loans, tax debt owed to CRA, payday loans, and any other debts.</div>
+                    <div class="input-tip" id="otherDebtTip">Include business loans, tax debt owed to CRA, payday loans, and any other debts. Quebec residents should include Revenu Québec debts. CRA debt should be prioritized as the CRA has significant collection powers.</div>
                 </div>
+            </div>
+        </div>
+
+        <!-- RRSP/TFSA Contribution Room Tracker - NEW ADDITION -->
+        <div class="contribution-room" id="contributionRoom">
+            <h4 class="mb-3"><i class="fas fa-chart-bar me-2"></i>Registered Account Contribution Room</h4>
+            <p class="small text-muted">Track your unused contribution room to optimize your tax strategy. These don't affect your net worth calculation.</p>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <div class="card p-3">
+                        <h5>TFSA Contribution Room</h5>
+                        <div class="input-group mb-2">
+                            <span class="input-group-text">$</span>
+                            <input type="number" class="form-control" id="tfsaRoom" placeholder="0" min="0" inputmode="decimal">
+                        </div>
+                        <p class="small text-muted">The 2025 TFSA contribution limit is $7,000, with a cumulative maximum of $95,000 if you were 18+ in 2009.</p>
+                        <div class="tracker-bar">
+                            <div class="tracker-fill" id="tfsaFill"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="card p-3">
+                        <h5>RRSP Contribution Room</h5>
+                        <div class="input-group mb-2">
+                            <span class="input-group-text">$</span>
+                            <input type="number" class="form-control" id="rrspRoom" placeholder="0" min="0" inputmode="decimal">
+                        </div>
+                        <p class="small text-muted">Your RRSP contribution room is 18% of your previous year's earned income up to a maximum of $31,560 for 2025.</p>
+                        <div class="tracker-bar">
+                            <div class="tracker-fill" id="rrspFill"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center">
+                <button id="toggleContribution" class="btn btn-sm btn-outline-primary mt-2">Hide Contribution Tracker</button>
             </div>
         </div>
 
         <div class="row mt-4">
             <div class="col-12 text-center">
+                <button id="showContribution" class="btn btn-outline-secondary mb-3">Show TFSA/RRSP Contribution Room Tracker</button>
                 <div class="d-flex justify-content-center btn-group-action">
                     <button id="calculateBtn" class="btn btn-calculate">
                         <i class="fas fa-calculator me-2" aria-hidden="true"></i>Calculate Net Worth
@@ -905,6 +1014,7 @@
                         </tbody>
                     </table>
                     <p class="small text-muted">Source: Statistics Canada Survey of Financial Security (most recent data)</p>
+                    <p class="small" id="provincialNote">Note: These are national averages. Select your province above for more relevant benchmarks.</p>
                 </div>
 
                 <div class="col-md-6">
@@ -916,6 +1026,8 @@
                         <li><strong>Leverage the Home Buyers' Plan</strong> - Use your RRSP for a home down payment if eligible.</li>
                         <li><strong>Consider income-splitting strategies</strong> - Explore spousal RRSPs and other tax-efficient options.</li>
                         <li><strong>Invest in low-cost ETFs</strong> - Keep investment fees low to maximize returns over time.</li>
+                        <li><strong>Use the First Home Savings Account (FHSA)</strong> - New tax-free account for first-time homebuyers that combines RRSP and TFSA benefits.</li>
+                        <li><strong>Plan for OAS and CPP</strong> - Understanding government benefits can help optimize your retirement planning.</li>
                     </ul>
                 </div>
             </div>
@@ -1008,6 +1120,71 @@
         const resultContainer = document.getElementById('resultContainer');
         const meterFill = document.getElementById('meterFill');
         const allInputs = [...assetInputs, ...liabilityInputs];
+        const provinceSelect = document.getElementById('provinceSelect');
+        const showContributionBtn = document.getElementById('showContribution');
+        const toggleContributionBtn = document.getElementById('toggleContribution');
+        const contributionRoom = document.getElementById('contributionRoom');
+        const tfsaRoom = document.getElementById('tfsaRoom');
+        const rrspRoom = document.getElementById('rrspRoom');
+        const tfsaFill = document.getElementById('tfsaFill');
+        const rrspFill = document.getElementById('rrspFill');
+        const languageToggle = document.getElementById('languageToggle');
+
+        // Language toggle functionality (French/English)
+        let currentLanguage = 'en';
+        languageToggle.addEventListener('click', function() {
+            if (currentLanguage === 'en') {
+                currentLanguage = 'fr';
+                languageToggle.querySelector('#languageText').textContent = 'English';
+                // Here you would implement the actual language change
+                alert('Cette fonctionnalité sera bientôt disponible. La version française est en développement.');
+                currentLanguage = 'en';
+                languageToggle.querySelector('#languageText').textContent = 'Français';
+            } else {
+                currentLanguage = 'en';
+                languageToggle.querySelector('#languageText').textContent = 'Français';
+            }
+        });
+
+        // Provincial data for net worth benchmarks (made-up data - would need real data)
+        const provincialBenchmarks = {
+            'national': {
+                'under35': { median: 48800, average: 163700 },
+                '35-44': { median: 234400, average: 457700 },
+                '45-54': { median: 521100, average: 833200 },
+                '55-64': { median: 690000, average: 1098400 },
+                '65plus': { median: 543200, average: 1006400 }
+            },
+            'ON': {
+                'under35': { median: 52000, average: 178500 },
+                '35-44': { median: 245000, average: 489000 },
+                '45-54': { median: 560000, average: 910000 },
+                '55-64': { median: 720000, average: 1200000 },
+                '65plus': { median: 580000, average: 1100000 }
+            },
+            'BC': {
+                'under35': { median: 55000, average: 195000 },
+                '35-44': { median: 260000, average: 520000 },
+                '45-54': { median: 590000, average: 950000 },
+                '55-64': { median: 850000, average: 1350000 },
+                '65plus': { median: 650000, average: 1200000 }
+            },
+            'AB': {
+                'under35': { median: 50000, average: 170000 },
+                '35-44': { median: 240000, average: 470000 },
+                '45-54': { median: 530000, average: 840000 },
+                '55-64': { median: 700000, average: 1100000 },
+                '65plus': { median: 550000, average: 1000000 }
+            },
+            'QC': {
+                'under35': { median: 45000, average: 150000 },
+                '35-44': { median: 220000, average: 430000 },
+                '45-54': { median: 480000, average: 790000 },
+                '55-64': { median: 620000, average: 980000 },
+                '65plus': { median: 500000, average: 920000 }
+            }
+            // Add other provinces as needed
+        };
 
         // Country selector functionality
         const countryItems = document.querySelectorAll('.country-selector .dropdown-item');
@@ -1032,8 +1209,86 @@
             });
         });
 
+        // Province selector functionality
+        provinceSelect.addEventListener('change', function() {
+            const selectedProvince = this.value;
+            updateProvincialBenchmarks(selectedProvince);
+        });
+
+        // Show/hide contribution room tracker
+        showContributionBtn.addEventListener('click', function() {
+            contributionRoom.style.display = 'block';
+            this.style.display = 'none';
+        });
+
+        toggleContributionBtn.addEventListener('click', function() {
+            if (contributionRoom.style.display === 'none' || !contributionRoom.style.display) {
+                contributionRoom.style.display = 'block';
+                this.textContent = 'Hide Contribution Tracker';
+                showContributionBtn.style.display = 'none';
+            } else {
+                contributionRoom.style.display = 'none';
+                this.textContent = 'Show Contribution Tracker';
+                showContributionBtn.style.display = 'block';
+            }
+        });
+
+        // Update TFSA/RRSP contribution room visuals
+        [tfsaRoom, rrspRoom].forEach(input => {
+            input.addEventListener('input', function() {
+                updateContributionRoomVisuals();
+                localStorage.setItem(this.id, this.value);
+            });
+
+            // Load saved values
+            const savedValue = localStorage.getItem(input.id);
+            if (savedValue) {
+                input.value = savedValue;
+            }
+        });
+
+        function updateContributionRoomVisuals() {
+            // TFSA - Maximum assumed to be $95,000 for 2025
+            const tfsaValue = parseFloat(tfsaRoom.value || 0);
+            const tfsaMax = 95000;
+            const tfsaPercentage = Math.min(100, (tfsaValue / tfsaMax) * 100);
+            tfsaFill.style.width = `${tfsaPercentage}%`;
+
+            // RRSP - We don't know the max, so we'll use $100,000 as a benchmark
+            const rrspValue = parseFloat(rrspRoom.value || 0);
+            const rrspMax = 100000;
+            const rrspPercentage = Math.min(100, (rrspValue / rrspMax) * 100);
+            rrspFill.style.width = `${rrspPercentage}%`;
+
+            // Color coding based on amount
+            tfsaFill.style.backgroundColor = tfsaPercentage > 70 ? 'var(--success)' : 'var(--primary)';
+            rrspFill.style.backgroundColor = rrspPercentage > 70 ? 'var(--success)' : 'var(--primary)';
+        }
+
+        // Initialize contribution room visuals
+        updateContributionRoomVisuals();
+
+        // Function to update benchmarks based on selected province
+        function updateProvincialBenchmarks(province) {
+            // We would update the table with provincial data here
+            // For now, we'll just show a message
+            const provincialNote = document.getElementById('provincialNote');
+
+            if (province === 'national') {
+                provincialNote.textContent = 'Note: These are national averages. Select your province above for more relevant benchmarks.';
+            } else {
+                if (provincialBenchmarks[province]) {
+                    provincialNote.textContent = `Note: Showing benchmarks specific to ${province}. These may differ significantly from national averages.`;
+                    // Here we would update the table with the provincial data
+                } else {
+                    provincialNote.textContent = `Note: Detailed data for ${province} is not available. Showing national averages.`;
+                }
+            }
+        }
+
         // Store the last calculated net worth for comparisons
         let lastNetWorth = 0;
+        let userAge = null;
 
         // Add keyboard shortcuts
         document.addEventListener('keydown', function(e) {
@@ -1048,6 +1303,16 @@
                 e.preventDefault();
             }
         });
+
+        // Debounce function for better performance
+        function debounce(func, wait) {
+            let timeout;
+            return function(...args) {
+                const context = this;
+                clearTimeout(timeout);
+                timeout = setTimeout(() => func.apply(context, args), wait);
+            };
+        }
 
         // Show input tips on focus
         allInputs.forEach(input => {
@@ -1079,7 +1344,7 @@
             });
 
             // Set up input event for live updating
-            input.addEventListener('input', function() {
+            input.addEventListener('input', debounce(function() {
                 // Ensure non-negative values
                 if (this.value < 0) this.value = 0;
 
@@ -1100,7 +1365,7 @@
 
                 // Update totals in real-time
                 updateTotals();
-            });
+            }, 100));
         });
 
         // Initialize totals on page load
@@ -1108,6 +1373,17 @@
 
         // Calculate button event
         calculateBtn.addEventListener('click', function() {
+            // If we don't have the user's age, ask for it to provide better benchmarks
+            if (userAge === null) {
+                const ageResponse = prompt("For more personalized benchmarks, please enter your age (optional):");
+                if (ageResponse && !isNaN(ageResponse) && ageResponse > 0 && ageResponse < 120) {
+                    userAge = parseInt(ageResponse);
+                    localStorage.setItem('userAge', userAge);
+                } else if (ageResponse !== null) {
+                    alert("Invalid age entered. We'll proceed without age-specific benchmarks.");
+                }
+            }
+
             calculateNetWorth();
 
             // Animate the result display
@@ -1144,7 +1420,7 @@
                 const netWorth = totalAssets - totalLiabilities;
 
                 // Get age group benchmark data
-                const benchmarkText = getBenchmarkComparison(netWorth);
+                const benchmarkText = getBenchmarkComparison(netWorth, userAge, provinceSelect.value);
                 benchmarkMessage.textContent = benchmarkText;
             }
 
@@ -1178,6 +1454,13 @@
                 localStorage.removeItem(input.id);
             });
 
+            // Reset contribution room inputs too
+            tfsaRoom.value = '';
+            rrspRoom.value = '';
+            localStorage.removeItem('tfsaRoom');
+            localStorage.removeItem('rrspRoom');
+            updateContributionRoomVisuals();
+
             // Reset displays
             totalAssetsDisplay.textContent = '$0';
             totalLiabilitiesDisplay.textContent = '$0';
@@ -1194,6 +1477,8 @@
 
             // Reset last net worth
             lastNetWorth = 0;
+
+            // Don't reset the user's age
         });
 
         // Function to check if any values have been entered
@@ -1235,8 +1520,38 @@
         }
 
         // Function to get a personalized benchmark comparison
-        function getBenchmarkComparison(netWorth) {
-            // Simple age-based benchmark comparison
+        function getBenchmarkComparison(netWorth, age, province) {
+            // If we have the user's age, provide more specific comparison
+            if (age) {
+                let ageGroup, benchmarks;
+
+                // Determine age group and get appropriate benchmarks
+                if (age < 35) ageGroup = 'under35';
+                else if (age < 45) ageGroup = '35-44';
+                else if (age < 55) ageGroup = '45-54';
+                else if (age < 65) ageGroup = '55-64';
+                else ageGroup = '65plus';
+
+                // Get provincial or national benchmarks
+                if (provincialBenchmarks[province] && provincialBenchmarks[province][ageGroup]) {
+                    benchmarks = provincialBenchmarks[province][ageGroup];
+                } else {
+                    benchmarks = provincialBenchmarks['national'][ageGroup];
+                }
+
+                // Compare to median and average
+                const medianComparison = netWorth > benchmarks.median ?
+                    `above the median (${formatCurrency(benchmarks.median)})` :
+                    `below the median (${formatCurrency(benchmarks.median)})`;
+
+                const averageComparison = netWorth > benchmarks.average ?
+                    `above the average (${formatCurrency(benchmarks.average)})` :
+                    `below the average (${formatCurrency(benchmarks.average)})`;
+
+                return `For your age group (${age}), your net worth is ${medianComparison} and ${averageComparison} in ${province === 'national' ? 'Canada' : province}.`;
+            }
+
+            // Generic message if no age provided
             return "Compare your net worth to the Canadian averages in the table below. Remember that median values (the middle point) are often more representative than averages for most people.";
         }
 
@@ -1258,22 +1573,22 @@
             if (netWorth > 0) {
                 netWorthResult.className = 'result-value positive';
                 if (netWorth > 500000) {
-                    helpfulMessage.textContent = "Excellent job! Your net worth is substantially positive. Consider using your TFSA and RRSP to their full potential, and explore diverse investment strategies.";
+                    helpfulMessage.textContent = "Excellent job! Your net worth is substantially positive. Consider maximizing your TFSA and RRSP contributions, and explore investment strategies that align with your financial goals.";
                 } else if (netWorth > 100000) {
-                    helpfulMessage.textContent = "You have a strong positive net worth. Keep growing your registered accounts and consider increasing your investment allocations across TFSA and RRSP.";
+                    helpfulMessage.textContent = "You have a strong positive net worth. Consider optimizing your TFSA and RRSP allocations based on your current tax bracket and future income expectations.";
                 } else {
-                    helpfulMessage.textContent = "You're on the right track with a positive net worth. Focus on building your emergency fund and increasing contributions to your TFSA and RRSP.";
+                    helpfulMessage.textContent = "You're on the right track with a positive net worth. Focus on building your emergency fund and increasing contributions to your TFSA and RRSP. The First Home Savings Account (FHSA) might also be worth considering if you're planning to buy a home.";
                 }
             } else if (netWorth < 0) {
                 netWorthResult.className = 'result-value negative';
                 if (netWorth < -100000) {
-                    helpfulMessage.textContent = "Your net worth is significantly negative. Develop a debt repayment strategy focusing first on high-interest debt while maintaining minimum RRSP contributions for tax benefits.";
+                    helpfulMessage.textContent = "Your net worth is significantly negative. Develop a debt repayment strategy focusing first on high-interest debt like credit cards and payday loans. Consider getting free debt counselling from a non-profit credit counselling agency.";
                 } else {
-                    helpfulMessage.textContent = "Your net worth is currently negative. Focus on paying down high-interest debt first while building a small emergency fund in a TFSA.";
+                    helpfulMessage.textContent = "Your net worth is currently negative. Focus on reducing high-interest debt while building a small emergency fund. Consider using the debt avalanche method (highest interest first) or the debt snowball method (smallest balances first) to tackle your debts.";
                 }
             } else {
                 netWorthResult.className = 'result-value neutral';
-                helpfulMessage.textContent = "Your assets equal your liabilities. Work on increasing your savings rate and reducing debt to build positive net worth.";
+                helpfulMessage.textContent = "Your assets equal your liabilities. Work on increasing your savings rate and reducing debt to build positive net worth. Consider tracking your spending to identify areas where you can cut back.";
             }
 
             // If not the first calculation, add feedback about the change
@@ -1296,6 +1611,12 @@
                 minimumFractionDigits: 0,
                 maximumFractionDigits: 0
             }).format(amount);
+        }
+
+        // Load user age from localStorage if available
+        const savedAge = localStorage.getItem('userAge');
+        if (savedAge) {
+            userAge = parseInt(savedAge);
         }
     });
 </script>

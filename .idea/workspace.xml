@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="594a491f-0daa-45b3-9a7a-f02174855749" name="Changes" comment="feat(ca): 增加加拿大省级基准和双语支持&#10;&#10;- 在标题中添加 TFSA 和 RRSP 关键词以优化 SEO- 实现省份选择器，提供更准确的基准数据&#10;- 添加双语切换功能，支持英语和法语&#10;- 新增注册账户贡献空间追踪器&#10;- 更新输入提示，提供更多相关财务信息&#10;- 改进净值计算结果的个性化反馈" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;addychang&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/addychang/networthcalculator.com.git&quot;,
+    &quot;accountId&quot;: &quot;deacbdba-fedf-4223-999e-bdd9f8cb5d4e&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
+  <component name="ProjectId" id="2vtaBER8lJxcb7O91zjDNWitTp8" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "D:/htdocs/whoisjet.com",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\htdocs\networthcalculator.com" />
+      <recent name="D:\htdocs\networthcalculator.com\img\flag" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-WS-243.25659.40" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="594a491f-0daa-45b3-9a7a-f02174855749" name="Changes" comment="feat: 添加网站 logo 并调整头部布局&#10;&#10;- 在头部加入 Net Worth Calculator Logo&#10;- 调整 logo 大小和对齐方式&#10;- 更新 CSS 样式，增加 .site-logo 类&#10;- 修改 header 结构，使用 flex布局" />
+      <created>1744966687947</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1744966687947</updated>
+      <workItem from="1744966689660" duration="11785000" />
+      <workItem from="1745084854268" duration="257000" />
+      <workItem from="1745682394394" duration="10000" />
+    </task>
+    <task id="LOCAL-00001" summary="docs:完善网站隐私政策和使用条款&#10;&#10;- 新增隐私政策页面，详细说明数据收集、使用和共享的规则&#10;- 新增使用条款页面，明确用户使用网站服务的条件和限制&#10;- 更新首页脚注，添加隐私政策和使用条款的链接">
+      <option name="closed" value="true" />
+      <created>1744967233289</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1744967233289</updated>
+    </task>
+    <task id="LOCAL-00002" summary="feat(header): 更新 logo 点击功能并添加导航&#10;&#10;- 在 logo 图像周围添加链接，点击后返回主页&#10;- 用&quot;Back to Calculator&quot;按钮替换&quot;Reset&quot;按钮，提供更清晰的导航- 调整 header 结构，提高可访问性">
+      <option name="closed" value="true" />
+      <created>1744979538370</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1744979538370</updated>
+    </task>
+    <task id="LOCAL-00003" summary="fix: 修改文件名大小写">
+      <option name="closed" value="true" />
+      <created>1744983473148</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1744983473148</updated>
+    </task>
+    <task id="LOCAL-00004" summary="fix: 修改文件名大小写">
+      <option name="closed" value="true" />
+      <created>1744984243979</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1744984243979</updated>
+    </task>
+    <task id="LOCAL-00005" summary="feat(ca): 增加加拿大省级基准和双语支持&#10;&#10;- 在标题中添加 TFSA 和 RRSP 关键词以优化 SEO- 实现省份选择器，提供更准确的基准数据&#10;- 添加双语切换功能，支持英语和法语&#10;- 新增注册账户贡献空间追踪器&#10;- 更新输入提示，提供更多相关财务信息&#10;- 改进净值计算结果的个性化反馈">
+      <option name="closed" value="true" />
+      <created>1745085000382</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1745085000382</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="feat: 添加网站 logo 并调整头部布局&#10;&#10;- 在头部加入 Net Worth Calculator Logo&#10;- 调整 logo 大小和对齐方式&#10;- 更新 CSS 样式，增加 .site-logo 类&#10;- 修改 header 结构，使用 flex布局" />
+    <MESSAGE value="docs:完善网站隐私政策和使用条款&#10;&#10;- 新增隐私政策页面，详细说明数据收集、使用和共享的规则&#10;- 新增使用条款页面，明确用户使用" />
+    <MESSAGE value="docs:完善网站隐私政策和使用条款&#10;&#10;- 新增隐私政策页面，详细说明数据收集、使用和共享的规则&#10;- 新增使用条款页面，明确用户使用网站服务的条件和限制&#10;- 更新首页脚注，添加隐私政策和使用条款的链接" />
+    <MESSAGE value="feat(header): 更新 logo 点击功能并添加导航&#10;&#10;- 在 logo 图像周围添加链接，点击后返回主页&#10;- 用&quot;Back to Calculator&quot;按钮替换&quot;Reset&quot;按钮，提供更清晰的导航- 调整 header 结构，提高可访问性" />
+    <MESSAGE value="fix: 修改文件名大小写" />
+    <MESSAGE value="feat(ca): 增加加拿大省级基准和双语支持&#10;&#10;- 在标题中添加 TFSA 和 RRSP 关键词以优化 SEO- 实现省份选择器，提供更准确的基准数据&#10;- 添加双语切换功能，支持英语和法语&#10;- 新增注册账户贡献空间追踪器&#10;- 更新输入提示，提供更多相关财务信息&#10;- 改进净值计算结果的个性化反馈" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(ca): 增加加拿大省级基准和双语支持&#10;&#10;- 在标题中添加 TFSA 和 RRSP 关键词以优化 SEO- 实现省份选择器，提供更准确的基准数据&#10;- 添加双语切换功能，支持英语和法语&#10;- 新增注册账户贡献空间追踪器&#10;- 更新输入提示，提供更多相关财务信息&#10;- 改进净值计算结果的个性化反馈" />
+  </component>
+</project>

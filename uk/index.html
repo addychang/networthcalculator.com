@@ -522,6 +522,16 @@
                 font-size: 1rem;
             }
         }
+    
+        .data-freshness-note {
+            margin-top: 0.75rem;
+            padding: 0.75rem 1rem;
+            border-radius: var(--border-radius);
+            background-color: #eef6ff;
+            border-left: 4px solid var(--accent);
+            color: var(--dark-gray);
+            font-size: 0.9rem;
+        }
     </style>
     <!-- Schema.org structured data for better SEO -->
     <script type="application/ld+json">
@@ -881,6 +891,15 @@
             </div>
 
             <div class="benchmark-message" id="benchmarkMessage"></div>
+            <div class="mt-3">
+                <label for="ageGroupSelect" class="form-label mb-1"><strong>Your age group (for benchmark comparison)</strong></label>
+                <select id="ageGroupSelect" class="form-select" aria-label="Select your age group for benchmark comparison">
+                    <option value="">Select age group</option>
+                </select>
+            </div>
+            <div class="data-freshness-note" role="note">
+                Benchmarks were reviewed in January 2026 and reflect the latest publicly available household wealth releases by country. Figures are updated as new official datasets are published.
+            </div>
         </div>
 
         <!-- UK Benchmarks Section -->
@@ -1053,7 +1072,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <p class="mb-0">© 2025 NetWorthCalculator.com. All rights reserved.</p>
+                <p class="mb-0">© <span class="current-year"></span> NetWorthCalculator.com. All rights reserved.</p>
                 <p class="small text-muted">Use of this site constitutes acceptance of our <a href="/terms-of-use.html" class="text-muted">Terms of Use</a> and <a href="/privacy-policy.html" class="text-muted">Privacy Policy</a>.</p>
             </div>
             <div class="col-md-6 text-md-end">
@@ -1083,7 +1102,13 @@
         const totalLiabilitiesDisplay = document.getElementById('totalLiabilities');
         const resultContainer = document.getElementById('resultContainer');
         const meterFill = document.getElementById('meterFill');
+        const ageGroupSelect = document.getElementById('ageGroupSelect');
+        const benchmarkRows = document.querySelectorAll('.benchmark-table tbody tr');
+        const ageGroupStorageKey = `selectedAgeGroup:${window.location.pathname}`;
         const allInputs = [...assetInputs, ...liabilityInputs];
+
+        setCurrentYear();
+        populateAgeGroupOptions();
 
         // Country selector functionality
         const countryItems = document.querySelectorAll('.country-selector .dropdown-item');
@@ -1122,6 +1147,13 @@
             if (e.altKey && e.key === 'r') {
                 resetBtn.click();
                 e.preventDefault();
+            }
+        });
+
+        ageGroupSelect.addEventListener('change', function() {
+            localStorage.setItem(ageGroupStorageKey, this.value);
+            if (hasValuesEntered()) {
+                calculateNetWorth();
             }
         });
 
@@ -1270,6 +1302,8 @@
 
             // Reset last net worth
             lastNetWorth = 0;
+            ageGroupSelect.value = '';
+            localStorage.removeItem(ageGroupStorageKey);
         });
 
         // Function to check if any values have been entered
@@ -1312,8 +1346,28 @@
 
         // Function to get a personalized benchmark comparison
         function getBenchmarkComparison(netWorth) {
-            // Simple age-based benchmark comparison
-            return "Compare your net worth to the UK averages in the table below. Remember that median values (the middle point) are often more representative than averages for most people.";
+            const selectedAgeGroup = ageGroupSelect.value;
+            if (!selectedAgeGroup) {
+                return 'Select your age group to get a personalized benchmark comparison.';
+            }
+
+            const row = Array.from(benchmarkRows).find(r => r.cells[0]?.textContent.trim() === selectedAgeGroup);
+            if (!row || row.cells.length < 3) {
+                return 'Benchmark comparison is temporarily unavailable for the selected age group.';
+            }
+
+            const median = parseCurrencyValue(row.cells[1].textContent);
+            const average = parseCurrencyValue(row.cells[2].textContent);
+            const diffFromMedian = netWorth - median;
+
+            if (netWorth >= average) {
+                return `Great job — your net worth is above the average (${formatCurrency(average)}) for the ${selectedAgeGroup} age group.`;
+            }
+            if (netWorth >= median) {
+                return `You're above the median (${formatCurrency(median)}) for the ${selectedAgeGroup} age group and building strong momentum.`;
+            }
+
+            return `You're ${formatCurrency(Math.abs(diffFromMedian))} below the median (${formatCurrency(median)}) for the ${selectedAgeGroup} age group. Focus on debt reduction and steady investing to close the gap.`;
         }
 
         // Function to calculate net worth and update UI
@@ -1362,6 +1416,31 @@
 
                 helpfulMessage.textContent += " " + changeText;
             }
+        }
+
+        function setCurrentYear() {
+            document.querySelectorAll('.current-year').forEach(el => {
+                el.textContent = new Date().getFullYear();
+            });
+        }
+
+        function populateAgeGroupOptions() {
+            const savedAgeGroup = localStorage.getItem(ageGroupStorageKey) || '';
+            benchmarkRows.forEach(row => {
+                const ageLabel = row.cells[0]?.textContent.trim();
+                if (!ageLabel) return;
+                const option = document.createElement('option');
+                option.value = ageLabel;
+                option.textContent = ageLabel;
+                ageGroupSelect.appendChild(option);
+            });
+            if (savedAgeGroup) {
+                ageGroupSelect.value = savedAgeGroup;
+            }
+        }
+
+        function parseCurrencyValue(value) {
+            return parseFloat(String(value).replace(/[^0-9.-]/g, '')) || 0;
         }
 
         // Helper function to format currency in GBP

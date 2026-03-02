@@ -568,6 +568,16 @@
                 font-size: 1rem;
             }
         }
+    
+        .data-freshness-note {
+            margin-top: 0.75rem;
+            padding: 0.75rem 1rem;
+            border-radius: var(--border-radius);
+            background-color: #eef6ff;
+            border-left: 4px solid var(--accent);
+            color: var(--dark-gray);
+            font-size: 0.9rem;
+        }
     </style>
     <!-- Schema.org structured data for better SEO -->
     <script type="application/ld+json">
@@ -990,6 +1000,15 @@
             </div>
 
             <div class="benchmark-message" id="benchmarkMessage"></div>
+            <div class="mt-3">
+                <label for="ageGroupSelect" class="form-label mb-1"><strong>Your age group (for benchmark comparison)</strong></label>
+                <select id="ageGroupSelect" class="form-select" aria-label="Select your age group for benchmark comparison">
+                    <option value="">Select age group</option>
+                </select>
+            </div>
+            <div class="data-freshness-note" role="note">
+                Benchmarks were reviewed in January 2026 and reflect the latest publicly available household wealth releases by country. Figures are updated as new official datasets are published.
+            </div>
         </div>
 
         <!-- Canadian Benchmarks Section -->
@@ -1161,7 +1180,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <p class="mb-0">© 2025 NetWorthCalculator.com. All rights reserved.</p>
+                <p class="mb-0">© <span class="current-year"></span> NetWorthCalculator.com. All rights reserved.</p>
                 <p class="small text-muted">Use of this site constitutes acceptance of our <a href="/terms-of-use.html" class="text-muted">Terms of Use</a> and <a href="/privacy-policy.html" class="text-muted">Privacy Policy</a>.</p>
             </div>
             <div class="col-md-6 text-md-end">
@@ -1191,6 +1210,9 @@
         const totalLiabilitiesDisplay = document.getElementById('totalLiabilities');
         const resultContainer = document.getElementById('resultContainer');
         const meterFill = document.getElementById('meterFill');
+        const ageGroupSelect = document.getElementById('ageGroupSelect');
+        const benchmarkRows = document.querySelectorAll('.benchmark-table tbody tr');
+        const ageGroupStorageKey = `selectedAgeGroup:${window.location.pathname}`;
         const allInputs = [...assetInputs, ...liabilityInputs];
         const provinceSelect = document.getElementById('provinceSelect');
         const showContributionBtn = document.getElementById('showContribution');
@@ -1257,6 +1279,9 @@
             }
             // Add other provinces as needed
         };
+
+        setCurrentYear();
+        populateAgeGroupOptions();
 
         // Country selector functionality
         const countryItems = document.querySelectorAll('.country-selector .dropdown-item');
@@ -1386,6 +1411,13 @@
             };
         }
 
+        ageGroupSelect.addEventListener('change', function() {
+            localStorage.setItem(ageGroupStorageKey, this.value);
+            if (hasValuesEntered()) {
+                calculateNetWorth();
+            }
+        });
+
         // Show input tips on focus
         allInputs.forEach(input => {
             const tipId = input.id + 'Tip';
@@ -1492,7 +1524,7 @@
                 const netWorth = totalAssets - totalLiabilities;
 
                 // Get age group benchmark data
-                const benchmarkText = getBenchmarkComparison(netWorth, userAge, provinceSelect.value);
+                const benchmarkText = getBenchmarkComparison(netWorth, ageGroupSelect.value || userAge, provinceSelect.value);
                 benchmarkMessage.textContent = benchmarkText;
             }
 
@@ -1549,6 +1581,8 @@
 
             // Reset last net worth
             lastNetWorth = 0;
+            ageGroupSelect.value = '';
+            localStorage.removeItem(ageGroupStorageKey);
 
             // Don't reset the user's age
         });
@@ -1592,39 +1626,54 @@
         }
 
         // Function to get a personalized benchmark comparison
-        function getBenchmarkComparison(netWorth, age, province) {
-            // If we have the user's age, provide more specific comparison
-            if (age) {
-                let ageGroup, benchmarks;
+        function getBenchmarkComparison(netWorth, ageInput, province) {
+            let ageGroupKey = '';
+            let ageGroupLabel = '';
 
-                // Determine age group and get appropriate benchmarks
-                if (age < 35) ageGroup = 'under35';
-                else if (age < 45) ageGroup = '35-44';
-                else if (age < 55) ageGroup = '45-54';
-                else if (age < 65) ageGroup = '55-64';
-                else ageGroup = '65plus';
-
-                // Get provincial or national benchmarks
-                if (provincialBenchmarks[province] && provincialBenchmarks[province][ageGroup]) {
-                    benchmarks = provincialBenchmarks[province][ageGroup];
+            if (typeof ageInput === 'string' && ageInput.trim()) {
+                ageGroupLabel = ageInput.trim();
+                if (ageGroupLabel === 'Under 35') ageGroupKey = 'under35';
+                else if (ageGroupLabel === '35-44') ageGroupKey = '35-44';
+                else if (ageGroupLabel === '45-54') ageGroupKey = '45-54';
+                else if (ageGroupLabel === '55-64') ageGroupKey = '55-64';
+                else if (ageGroupLabel === '65+') ageGroupKey = '65plus';
+            } else if (Number.isFinite(ageInput)) {
+                if (ageInput < 35) {
+                    ageGroupKey = 'under35';
+                    ageGroupLabel = 'Under 35';
+                } else if (ageInput < 45) {
+                    ageGroupKey = '35-44';
+                    ageGroupLabel = '35-44';
+                } else if (ageInput < 55) {
+                    ageGroupKey = '45-54';
+                    ageGroupLabel = '45-54';
+                } else if (ageInput < 65) {
+                    ageGroupKey = '55-64';
+                    ageGroupLabel = '55-64';
                 } else {
-                    benchmarks = provincialBenchmarks['national'][ageGroup];
+                    ageGroupKey = '65plus';
+                    ageGroupLabel = '65+';
                 }
-
-                // Compare to median and average
-                const medianComparison = netWorth > benchmarks.median ?
-                    `above the median (${formatCurrency(benchmarks.median)})` :
-                    `below the median (${formatCurrency(benchmarks.median)})`;
-
-                const averageComparison = netWorth > benchmarks.average ?
-                    `above the average (${formatCurrency(benchmarks.average)})` :
-                    `below the average (${formatCurrency(benchmarks.average)})`;
-
-                return `For your age group (${age}), your net worth is ${medianComparison} and ${averageComparison} in ${province === 'national' ? 'Canada' : province}.`;
             }
 
-            // Generic message if no age provided
-            return "Compare your net worth to the Canadian averages in the table below. Remember that median values (the middle point) are often more representative than averages for most people.";
+            if (!ageGroupKey) {
+                return 'Select your age group to get a personalized benchmark comparison.';
+            }
+
+            const provinceData = provincialBenchmarks[province] || provincialBenchmarks['national'];
+            const benchmarks = provinceData[ageGroupKey] || provincialBenchmarks['national'][ageGroupKey];
+            if (!benchmarks) {
+                return 'Benchmark comparison is temporarily unavailable for the selected age group.';
+            }
+
+            if (netWorth >= benchmarks.average) {
+                return `Great job — your net worth is above the average (${formatCurrency(benchmarks.average)}) for the ${ageGroupLabel} age group in ${province === 'national' ? 'Canada' : province}.`;
+            }
+            if (netWorth >= benchmarks.median) {
+                return `You're above the median (${formatCurrency(benchmarks.median)}) for the ${ageGroupLabel} age group in ${province === 'national' ? 'Canada' : province}.`;
+            }
+
+            return `You're ${formatCurrency(Math.abs(netWorth - benchmarks.median))} below the median (${formatCurrency(benchmarks.median)}) for the ${ageGroupLabel} age group in ${province === 'national' ? 'Canada' : province}.`;
         }
 
         // Function to calculate net worth and update UI
@@ -1673,6 +1722,31 @@
 
                 helpfulMessage.textContent += " " + changeText;
             }
+        }
+
+        function setCurrentYear() {
+            document.querySelectorAll('.current-year').forEach(el => {
+                el.textContent = new Date().getFullYear();
+            });
+        }
+
+        function populateAgeGroupOptions() {
+            const savedAgeGroup = localStorage.getItem(ageGroupStorageKey) || '';
+            benchmarkRows.forEach(row => {
+                const ageLabel = row.cells[0]?.textContent.trim();
+                if (!ageLabel) return;
+                const option = document.createElement('option');
+                option.value = ageLabel;
+                option.textContent = ageLabel;
+                ageGroupSelect.appendChild(option);
+            });
+            if (savedAgeGroup) {
+                ageGroupSelect.value = savedAgeGroup;
+            }
+        }
+
+        function parseCurrencyValue(value) {
+            return parseFloat(String(value).replace(/[^0-9.-]/g, '')) || 0;
         }
 
         // Helper function to format currency
